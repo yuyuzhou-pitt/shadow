@@ -62,7 +62,7 @@ int main(int argc, char *argv[]){
     fprintf(stdout, "(supervisor): socket manager start up.\n");
 
     fprintf(stdout, "(supervisor): please track log file for detail: %s\n", LOGFILE);
-    fprintf(stdout, "\n== WELCOME TO SRPC TERMINAL FOR PORT MAPPER! ==\n");
+    fprintf(stdout, "\n== WELCOME TO TERMINAL FOR SHADOW! ==\n");
     fprintf(stdout, "\nEnter the commands 'help' for usage.\n\n");
     
     char command[64];

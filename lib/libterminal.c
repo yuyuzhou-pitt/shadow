@@ -1,4 +1,4 @@
-/* This file provides commands for the SRPC terminal.
+/* This file provides commands for the shadow terminal.
  * It divides into four parts:
  * 1. general
  * 2. supervisor
@@ -162,7 +162,7 @@ int quit(){
 
 int helpPortMapper(){
     fprintf(stderr, "\nUsage: <subcommand>\n");
-    fprintf(stderr, "A user interface for the SRPC system.\n\n");
+    fprintf(stderr, "A user interface for the shadow system.\n\n");
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  list      list the current services in register machine table\n");
@@ -213,14 +213,14 @@ int listPortMapper(){
 
 int helpServer(){
     fprintf(stderr, "\nUsage: <subcommand> [options]\n");
-    fprintf(stderr, "A user interface for the SRPC system.\n\n");
+    fprintf(stderr, "A user interface for the shadow system.\n\n");
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  register  <program-name> <version-number>\n");
     fprintf(stderr, "            register services into register machine table\n");
     fprintf(stderr, "                <program-name>   the program name provided by this manager\n");
     fprintf(stderr, "                <version-number> version number for the program\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
+    fprintf(stderr, "  quit      stop shadow socket and quit\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "For example:\n");
     fprintf(stderr, "1. To register Map Reduce Library version 1:\n");
@@ -234,14 +234,14 @@ int helpServer(){
 
 int helpClient(){
     fprintf(stderr, "\nUsage: <subcommand> [options]\n");
-    fprintf(stderr, "A user interface for the SRPC system.\n\n");
+    fprintf(stderr, "A user interface for the shadow system.\n\n");
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  request   <program-name> <version-number> <procedure>\n");
     fprintf(stderr, "		request manager info for certain procedure provided by certain program of certain version\n");
     fprintf(stderr, "  execute   <program-name> <version-number> <procedure> <input_file> <out_putfile>\n");
     fprintf(stderr, "            request and call the remote procedure call\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
+    fprintf(stderr, "  quit      stop shadow socket and quit\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "For example:\n");
     fprintf(stderr, "1. To request Multipy in Scientific Library version 2:\n");
@@ -251,6 +251,8 @@ int helpClient(){
 
     return 0;
 }
+<<<<<<< HEAD
+=======
 
 /****************
 * 5. minigoogle *
@@ -277,3 +279,4 @@ int helpMiniGoogle(){
 
     return 0;
 }
+>>>>>>> e42f66a532933a4ec902f6e2a56551884c03a0f1

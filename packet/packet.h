@@ -22,7 +22,7 @@ typedef struct AppPath{
 typedef struct Machine{
     char ip[32];
     int port;
-    int status; // running, stopped
+    int status; // 0:running, 1:stopped
     time_t latest_heartbeat;
 }Machine;
 
@@ -36,71 +36,69 @@ typedef struct AppProcess{
 
 /*register machine to supervisor*/
 typedef struct Register_Machine{
-    char packet_type[5]; //0000
-    char version_number[8]; //why it's char?
-    Machine machine;
+    //char packet_type[5]; //0000
+    AppProcess app_process;
+    time_t date_time;
 }Register_Machine;
 
 typedef struct Register_Machine_Ack{
-    char packet_type[5]; //0001
-    char version_number[8]; //why it's char?
-    Machine machine;
-    int dup_numbers; //the program name on managers
+    //char packet_type[5]; //0001
+    AppProcess app_process;
+    time_t date_time;
 }Register_Machine_Ack;
 
 typedef struct Machine_Heartbeat{
-    char packet_type[5]; //0010
-    char version_number[8]; //why it's char?
-    Machine machine;
+    //char packet_type[5]; //0010
+    AppProcess app_process;
     time_t date_time;
-}MachineHeartbeat;
+}Machine_Heartbeat;
 
 typedef struct Launch_App{
-    char packet_type[5]; //0011
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //0011
     AppProcess app_process;
-}LaunchApp;
+    time_t date_time;
+}Launch_App;
 
 typedef struct Launch_App_Ack{
-    char packet_type[5]; //0100
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //0100
     AppProcess app_process;
-}LaunchAppAck;
+    time_t date_time;
+}Launch_App_Ack;
 
 typedef struct App_Heartbeat{
-    char packet_type[5]; //0101
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //0101
     AppProcess app_process;
-}AppHeartbeat;
+    time_t date_time;
+}App_Heartbeat;
 
 typedef struct Dump_App{
-    char packet_type[5]; //0110
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //0110
     AppProcess app_process;
-}DumpApp;
+    time_t date_time;
+}Dump_App;
 
 typedef struct Dump_App_Ack{
-    char packet_type[5]; //0111
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //0111
     AppProcess app_process;
-}DumpAppAck;
+    time_t date_time;
+}Dump_App_Ack;
 
 typedef struct Leap_App{
-    char packet_type[5]; //1000
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //1000
     AppProcess app_process;
-}LeapApp;
+    time_t date_time;
+}Leap_App;
 
 typedef struct Leap_App_Ack{
-    char packet_type[5]; //1001
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //1001
     AppProcess app_process;
-}LeapAppAck;
+    time_t date_time;
+}Leap_App_Ack;
 
 typedef struct Unknown{
-    char packet_type[5]; //1010
-    char version_number[8]; //why it's char?
+    //char packet_type[5]; //1010
     AppProcess app_process;
+    time_t date_time;
 }Unknown;
 
 /* All message will be wrapped into packet */
