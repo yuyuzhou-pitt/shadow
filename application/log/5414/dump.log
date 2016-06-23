@@ -1,0 +1,294 @@
+(00.000105) Probing sock diag modules
+(00.000187) Done probing
+(00.000195) ========================================
+(00.000198) Dumping processes (pid: 5414)
+(00.000200) ========================================
+(00.000387) Found anon-shmem device at 4
+(00.000411) Reset 5422's dirty tracking
+(00.000460)  ... done
+(00.000485) Dirty track supported on kernel
+(00.000520) irmap: Searching irmap cache in work dir
+(00.000571) irmap: Searching irmap cache in parent
+(00.000580) irmap: No irmap cache
+(00.000773) Writing image inventory (version 1)
+(00.000879) Add pid ns 1 pid 5422
+(00.000896) Add net ns 2 pid 5422
+(00.000905) Add ipc ns 3 pid 5422
+(00.000911) Add uts ns 4 pid 5422
+(00.000919) Add mnt ns 5 pid 5422
+(00.000927) Add user ns 6 pid 5422
+(00.000930) cg: Dumping cgroups for 5422
+(00.000981) cg: Set 1 is criu one
+(00.001216) Seized task 5414, state 1
+(00.001266) Collected 5414 in 1 state
+(00.001338) Lock network
+(00.001459) lockinfo: 1:1 1 893 00:12:16031 0 EOF
+(00.001468) lockinfo: 2:1 1 738 00:12:13658 0 EOF
+(00.001471) lockinfo: 3:2 1 4359 00:12:43306 0 EOF
+(00.001583) lockinfo: 4:2 1 894 00:12:17157 0 EOF
+(00.001589) lockinfo: 5:1 1 866 00:12:16827 0 EOF
+(00.001800) 	type sysfs source sysfs mnt_id 0xf s_dev 0xf / @ ./sys flags 0x30000e options seclabel
+(00.001811) 	type proc source proc mnt_id 0x10 s_dev 0x3 / @ ./proc flags 0x30000e options 
+(00.001817) 	type devtmpfs source devtmpfs mnt_id 0x11 s_dev 0x5 / @ ./dev flags 0x100002 options seclabel,size=490388k,nr_inodes=122597,mode=755
+(00.001872) 	type securityfs source securityfs mnt_id 0x12 s_dev 0x10 / @ ./sys/kernel/security flags 0x30000e options 
+(00.001931) 	type tmpfs source tmpfs mnt_id 0x13 s_dev 0x11 / @ ./dev/shm flags 0x100006 options seclabel
+(00.001936) 	type devpts source devpts mnt_id 0x14 s_dev 0xb / @ ./dev/pts flags 0x30000a options seclabel,gid=5,mode=620,ptmxmode=000
+(00.001949) 	type tmpfs source tmpfs mnt_id 0x15 s_dev 0x12 / @ ./run flags 0x100006 options seclabel,mode=755
+(00.001953) 	type tmpfs source tmpfs mnt_id 0x16 s_dev 0x13 / @ ./sys/fs/cgroup flags 0x10000f options seclabel,mode=755
+(00.002020) 	type cgroup source cgroup mnt_id 0x17 s_dev 0x14 / @ ./sys/fs/cgroup/systemd flags 0x30000e options xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd
+(00.002027) 	type pstore source pstore mnt_id 0x18 s_dev 0x15 / @ ./sys/fs/pstore flags 0x30000e options 
+(00.002053) 	type cgroup source cgroup mnt_id 0x19 s_dev 0x16 / @ ./sys/fs/cgroup/cpuset flags 0x30000e options cpuset
+(00.002057) 	type cgroup source cgroup mnt_id 0x1a s_dev 0x17 / @ ./sys/fs/cgroup/cpu,cpuacct flags 0x30000e options cpu,cpuacct
+(00.002062) 	type cgroup source cgroup mnt_id 0x1b s_dev 0x18 / @ ./sys/fs/cgroup/memory flags 0x30000e options memory
+(00.002105) 	type cgroup source cgroup mnt_id 0x1c s_dev 0x19 / @ ./sys/fs/cgroup/devices flags 0x30000e options devices
+(00.002109) 	type cgroup source cgroup mnt_id 0x1d s_dev 0x1a / @ ./sys/fs/cgroup/freezer flags 0x30000e options freezer
+(00.002113) 	type cgroup source cgroup mnt_id 0x1e s_dev 0x1b / @ ./sys/fs/cgroup/net_cls,net_prio flags 0x30000e options net_cls,net_prio
+(00.002120) 	type cgroup source cgroup mnt_id 0x1f s_dev 0x1c / @ ./sys/fs/cgroup/blkio flags 0x30000e options blkio
+(00.002127) 	type cgroup source cgroup mnt_id 0x20 s_dev 0x1d / @ ./sys/fs/cgroup/perf_event flags 0x30000e options perf_event
+(00.002172) 	type cgroup source cgroup mnt_id 0x21 s_dev 0x1e / @ ./sys/fs/cgroup/hugetlb flags 0x30000e options hugetlb
+(00.002175) 	type configfs source configfs mnt_id 0x36 s_dev 0x1f / @ ./sys/kernel/config flags 0x300000 options 
+(00.002240) 	type ext4 source /dev/mapper/fedora--server-root mnt_id 0x39 s_dev 0xfd00000 / @ ./ flags 0x300000 options seclabel,data=ordered
+(00.002244) 	type selinuxfs source selinuxfs mnt_id 0x22 s_dev 0xe / @ ./sys/fs/selinux flags 0x300000 options 
+(00.002253) 	type autofs source systemd-1 mnt_id 0x23 s_dev 0x21 / @ ./proc/sys/fs/binfmt_misc flags 0x300000 options fd=28,pgrp=1,timeout=300,minproto=5,maxproto=5,direct
+(00.002258) 	type hugetlbfs source hugetlbfs mnt_id 0x24 s_dev 0x22 / @ ./dev/hugepages flags 0x300000 options seclabel
+(00.002309) 	type tmpfs source tmpfs mnt_id 0x25 s_dev 0x23 / @ ./tmp flags 0x100000 options seclabel
+(00.002313) 	type mqueue source mqueue mnt_id 0x26 s_dev 0xd / @ ./dev/mqueue flags 0x300000 options seclabel
+(00.002318) 	type debugfs source debugfs mnt_id 0x27 s_dev 0x6 / @ ./sys/kernel/debug flags 0x300000 options 
+(00.002325) 	type ext4 source /dev/sda1 mnt_id 0x47 s_dev 0x800001 / @ ./boot flags 0x300000 options seclabel,data=ordered
+(00.002330) 	type tmpfs source tmpfs mnt_id 0x4b s_dev 0x25 / @ ./run/user/1000 flags 0x300006 options seclabel,size=100184k,mode=700,uid=1000,gid=1000
+(00.002335) 	type rpc_pipefs source sunrpc mnt_id 0x49 s_dev 0x24 / @ ./var/lib/nfs/rpc_pipefs flags 0x300000 options 
+(00.002380) 	type nfsd source nfsd mnt_id 0x4d s_dev 0x26 / @ ./proc/fs/nfsd flags 0x300000 options 
+(00.002391) Building mountpoints tree
+(00.002397) 	Resorting siblings on 57
+(00.002399) 	Resorting siblings on 73
+(00.002400) 	Resorting siblings on 71
+(00.002402) 	Resorting siblings on 37
+(00.002404) 	Resorting siblings on 21
+(00.002445) 	Resorting siblings on 75
+(00.002446) 	Resorting siblings on 17
+(00.002448) 	Resorting siblings on 38
+(00.002449) 	Resorting siblings on 36
+(00.002450) 	Resorting siblings on 20
+(00.002452) 	Resorting siblings on 19
+(00.002453) 	Resorting siblings on 16
+(00.002455) 	Resorting siblings on 77
+(00.002460) 	Resorting siblings on 35
+(00.002461) 	Resorting siblings on 15
+(00.002463) 	Resorting siblings on 39
+(00.002464) 	Resorting siblings on 34
+(00.002465) 	Resorting siblings on 54
+(00.002467) 	Resorting siblings on 24
+(00.002468) 	Resorting siblings on 22
+(00.002470) 	Resorting siblings on 33
+(00.002513) 	Resorting siblings on 32
+(00.002515) 	Resorting siblings on 31
+(00.002516) 	Resorting siblings on 30
+(00.002517) 	Resorting siblings on 29
+(00.002519) 	Resorting siblings on 28
+(00.002520) 	Resorting siblings on 27
+(00.002521) 	Resorting siblings on 26
+(00.002523) 	Resorting siblings on 25
+(00.002525) 	Resorting siblings on 23
+(00.002530) 	Resorting siblings on 18
+(00.002531) Done:
+(00.002532) [./](57->0)
+(00.002534)  [./boot](71->57)
+(00.002536)  <--
+(00.002537)  [./sys](15->57)
+(00.002539)   [./sys/kernel/debug](39->15)
+(00.002582)   <--
+(00.002584)   [./sys/kernel/security](18->15)
+(00.002585)   <--
+(00.002586)   [./sys/fs/cgroup](22->15)
+(00.002588)    [./sys/fs/cgroup/hugetlb](33->22)
+(00.002589)    <--
+(00.002591)    [./sys/fs/cgroup/systemd](23->22)
+(00.002592)    <--
+(00.002598)    [./sys/fs/cgroup/cpuset](25->22)
+(00.002599)    <--
+(00.002601)    [./sys/fs/cgroup/cpu,cpuacct](26->22)
+(00.002602)    <--
+(00.002604)    [./sys/fs/cgroup/memory](27->22)
+(00.002605)    <--
+(00.002606)    [./sys/fs/cgroup/devices](28->22)
+(00.002608)    <--
+(00.002651)    [./sys/fs/cgroup/freezer](29->22)
+(00.002653)    <--
+(00.002654)    [./sys/fs/cgroup/net_cls,net_prio](30->22)
+(00.002655)    <--
+(00.002657)    [./sys/fs/cgroup/blkio](31->22)
+(00.002658)    <--
+(00.002660)    [./sys/fs/cgroup/perf_event](32->22)
+(00.002661)    <--
+(00.002666)   <--
+(00.002670)   [./sys/fs/pstore](24->15)
+(00.002675)   <--
+(00.002679)   [./sys/kernel/config](54->15)
+(00.002683)   <--
+(00.002689)   [./sys/fs/selinux](34->15)
+(00.002692)   <--
+(00.002698)  <--
+(00.002702)  [./proc](16->57)
+(00.002708)   [./proc/fs/nfsd](77->16)
+(00.002714)   <--
+(00.002717)   [./proc/sys/fs/binfmt_misc](35->16)
+(00.002721)   <--
+(00.002726)  <--
+(00.002729)  [./dev](17->57)
+(00.002733)   [./dev/mqueue](38->17)
+(00.002737)   <--
+(00.002740)   [./dev/shm](19->17)
+(00.002742)   <--
+(00.002744)   [./dev/pts](20->17)
+(00.002746)   <--
+(00.002747)   [./dev/hugepages](36->17)
+(00.002749)   <--
+(00.002750)  <--
+(00.002751)  [./run](21->57)
+(00.002753)   [./run/user/1000](75->21)
+(00.002754)   <--
+(00.002756)  <--
+(00.002757)  [./tmp](37->57)
+(00.002758)  <--
+(00.002760)  [./var/lib/nfs/rpc_pipefs](73->57)
+(00.002761)  <--
+(00.002762) <--
+(00.002765) Collecting netns 2/5422
+(00.003022) unix: Dropping path /var/run/rpcbind.sock for unlinked bound sk 0x12.0xa92c real 0x12.0x409f
+(00.003269) Collect packet sock 33735 3
+(00.003305) Uncollected sockets! Will probably fail later.
+(00.004046) ========================================
+(00.004050) Dumping task (pid: 5414)
+(00.004052) ========================================
+(00.004053) Obtaining task stat ... (00.004081) 
+(00.004083) Collecting mappings (pid: 5414)
+(00.004085) ----------------------------------------
+(00.004259) Collected, longest area occupies 512 pages
+(00.004262) 0x400000-0x401000 (4K) prot 0x5 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.004265) 0x600000-0x601000 (4K) prot 0x1 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.004267) 0x601000-0x602000 (4K) prot 0x3 flags 0x2 st 0x41 off 0x1000 reg fp  shmid: 0
+(00.004268) 0x7fe9f8f1e000-0x7fe9f90d1000 (1740K) prot 0x5 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.004270) 0x7fe9f90d1000-0x7fe9f92d1000 (2048K) prot 0 flags 0x2 st 0x41 off 0x1b3000 reg fp  shmid: 0
+(00.004272) 0x7fe9f92d1000-0x7fe9f92d5000 (16K) prot 0x1 flags 0x2 st 0x41 off 0x1b3000 reg fp  shmid: 0
+(00.004274) 0x7fe9f92d5000-0x7fe9f92d7000 (8K) prot 0x3 flags 0x2 st 0x41 off 0x1b7000 reg fp  shmid: 0
+(00.004275) 0x7fe9f92d7000-0x7fe9f92db000 (16K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.004277) 0x7fe9f92db000-0x7fe9f92fc000 (132K) prot 0x5 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.004279) 0x7fe9f94ec000-0x7fe9f94ef000 (12K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.004281) 0x7fe9f94fa000-0x7fe9f94fc000 (8K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.004282) 0x7fe9f94fc000-0x7fe9f94fd000 (4K) prot 0x1 flags 0x2 st 0x41 off 0x21000 reg fp  shmid: 0
+(00.004284) 0x7fe9f94fd000-0x7fe9f94fe000 (4K) prot 0x3 flags 0x2 st 0x41 off 0x22000 reg fp  shmid: 0
+(00.004286) 0x7fe9f94fe000-0x7fe9f94ff000 (4K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.004287) 0x7fff18bac000-0x7fff18bce000 (136K) prot 0x3 flags 0x122 st 0x201 off 0 reg ap  shmid: 0
+(00.004289) 0x7fff18bfc000-0x7fff18bfe000 (8K) prot 0x1 flags 0x22 st 0x1201 off 0 reg vvar ap  shmid: 0
+(00.004291) 0x7fff18bfe000-0x7fff18c00000 (8K) prot 0x5 flags 0x22 st 0x209 off 0 reg vdso ap  shmid: 0
+(00.004293) 0xffffffffff600000-0xffffffffff601000 (4K) prot 0x5 flags 0x22 st 0x204 off 0 vsys ap  shmid: 0
+(00.004294) ----------------------------------------
+(00.004298) 
+(00.004299) Collecting fds (pid: 5414)
+(00.004301) ----------------------------------------
+(00.004312) Found 3 file descriptors
+(00.004314) ----------------------------------------
+(00.004375) Putting parasite blob into 0x7fc244da0000->0x7fe9f94de000
+(00.004390) Dumping GP/FPU registers for 5414
+(00.004395) Putting tsock into pid 5414
+(00.004437) Wait for parasite being daemonized...
+(00.004449) Parasite 5414 has been switched to daemon mode
+(00.004470) sid=4644 pgid=5414 pid=5414
+(00.004577) 
+(00.004579) Dumping opened files (pid: 5414)
+(00.004581) ----------------------------------------
+(00.004722) 5414 fdinfo 0: pos: 0x               0 flags:           100002/0
+(00.004743) tty: Dumping tty 41 with id 0x1
+(00.004748) Dumping path for 0 fd via self 41 [/dev/pts/0]
+(00.004780) fdinfo: type: 0x b flags: 0100002/0 pos: 0x       0 fd: 0
+(00.004794) 5414 fdinfo 1: pos: 0x               0 flags:           100002/0
+(00.004803) fdinfo: type: 0x b flags: 0100002/0 pos: 0x       0 fd: 1
+(00.004810) 5414 fdinfo 2: pos: 0x               0 flags:           100002/0
+(00.004815) fdinfo: type: 0x b flags: 0100002/0 pos: 0x       0 fd: 2
+(00.004825) ----------------------------------------
+(00.004837) 
+(00.004839) Dumping pages (type: 59 pid: 5414)
+(00.004850) ----------------------------------------
+(00.004910) Pagemap generated: 1 pages 0 holes
+(00.004914) Pagemap generated: 1 pages 0 holes
+(00.004916) Pagemap generated: 1 pages 0 holes
+(00.004925) Pagemap generated: 0 pages 0 holes
+(00.004932) Pagemap generated: 0 pages 0 holes
+(00.004935) Pagemap generated: 4 pages 0 holes
+(00.004938) Pagemap generated: 2 pages 0 holes
+(00.004941) Pagemap generated: 3 pages 0 holes
+(00.004943) Pagemap generated: 0 pages 0 holes
+(00.004946) Pagemap generated: 3 pages 0 holes
+(00.004949) Pagemap generated: 2 pages 0 holes
+(00.004956) Pagemap generated: 1 pages 0 holes
+(00.004958) Pagemap generated: 1 pages 0 holes
+(00.004960) Pagemap generated: 1 pages 0 holes
+(00.004963) Pagemap generated: 3 pages 0 holes
+(00.004965) Pagemap generated: 2 pages 0 holes
+(00.005061) ----------------------------------------
+(00.005098) 
+(00.005101) Dumping core (pid: 5414)
+(00.005102) ----------------------------------------
+(00.005103) Obtaining personality ... (00.005114) 5414 has 0 sched policy
+(00.005117) 	dumping 0 nice for 5414
+(00.005123) cg: Dumping cgroups for 5414
+(00.005155) cg: Set 2 is root one
+(00.005172) ----------------------------------------
+(00.005174) 
+(00.005175) Dumping creds for 5414)
+(00.005177) ----------------------------------------
+(00.005881) 
+(00.005886) Dumping mm (pid: 5414)
+(00.005888) ----------------------------------------
+(00.005890) 0x400000-0x401000 (4K) prot 0x5 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.005948) Dumping path for -3 fd via self 32 [/home/yuyuzhou/code/shadow/application/pi]
+(00.005961) 0x600000-0x601000 (4K) prot 0x1 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.005964) 0x601000-0x602000 (4K) prot 0x3 flags 0x2 st 0x41 off 0x1000 reg fp  shmid: 0
+(00.005966) 0x7fe9f8f1e000-0x7fe9f90d1000 (1740K) prot 0x5 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.005974) Dumping path for -3 fd via self 33 [/usr/lib64/libc-2.20.so]
+(00.005979) 0x7fe9f90d1000-0x7fe9f92d1000 (2048K) prot 0 flags 0x2 st 0x41 off 0x1b3000 reg fp  shmid: 0
+(00.005981) 0x7fe9f92d1000-0x7fe9f92d5000 (16K) prot 0x1 flags 0x2 st 0x41 off 0x1b3000 reg fp  shmid: 0
+(00.005983) 0x7fe9f92d5000-0x7fe9f92d7000 (8K) prot 0x3 flags 0x2 st 0x41 off 0x1b7000 reg fp  shmid: 0
+(00.005984) 0x7fe9f92d7000-0x7fe9f92db000 (16K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.005986) 0x7fe9f92db000-0x7fe9f92fc000 (132K) prot 0x5 flags 0x2 st 0x41 off 0 reg fp  shmid: 0
+(00.005991) Dumping path for -3 fd via self 34 [/usr/lib64/ld-2.20.so]
+(00.005995) 0x7fe9f94ec000-0x7fe9f94ef000 (12K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.005996) 0x7fe9f94fa000-0x7fe9f94fc000 (8K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.005998) 0x7fe9f94fc000-0x7fe9f94fd000 (4K) prot 0x1 flags 0x2 st 0x41 off 0x21000 reg fp  shmid: 0
+(00.006000) 0x7fe9f94fd000-0x7fe9f94fe000 (4K) prot 0x3 flags 0x2 st 0x41 off 0x22000 reg fp  shmid: 0
+(00.006002) 0x7fe9f94fe000-0x7fe9f94ff000 (4K) prot 0x3 flags 0x22 st 0x201 off 0 reg ap  shmid: 0
+(00.006004) 0x7fff18bac000-0x7fff18bce000 (136K) prot 0x3 flags 0x122 st 0x201 off 0 reg ap  shmid: 0
+(00.006005) 0x7fff18bfc000-0x7fff18bfe000 (8K) prot 0x1 flags 0x22 st 0x1201 off 0 reg vvar ap  shmid: 0
+(00.006007) 0x7fff18bfe000-0x7fff18c00000 (8K) prot 0x5 flags 0x22 st 0x209 off 0 reg vdso ap  shmid: 0
+(00.006009) 0xffffffffff600000-0xffffffffff601000 (4K) prot 0x5 flags 0x22 st 0x204 off 0 vsys ap  shmid: 0
+(00.006011) Obtaining task auvx ...
+(00.006046) Dumping path for -3 fd via self 3 [/home/yuyuzhou/code/shadow/application]
+(00.006060) Dumping path for -3 fd via self 3 [/]
+(00.006064) Dumping task cwd id 0x5 root id 0x6
+(00.006095) Dumping file-locks
+(00.006098) 
+(00.006099) Dumping pstree (pid: 5414)
+(00.006100) ----------------------------------------
+(00.006129) Process: 5414(5414)
+(00.006132) ----------------------------------------
+(00.006138) cg: Dumping 1 sets
+(00.006140) cg:  `- Dumping 2 set (10 ctls)
+(00.006142) cg:    `- Dumping blkio of /
+(00.006144) cg:    `- Dumping cpu,cpuacct of /
+(00.006145) cg:    `- Dumping cpuset of /
+(00.006147) cg:    `- Dumping devices of /
+(00.006148) cg:    `- Dumping freezer of /
+(00.006149) cg:    `- Dumping hugetlb of /
+(00.006151) cg:    `- Dumping memory of /
+(00.006152) cg:    `- Dumping name=systemd of /user.slice/user-1000.slice/session-23.scope
+(00.006154) cg:    `- Dumping net_cls,net_prio of /
+(00.006155) cg:    `- Dumping perf_event of /
+(00.006157) cg: Writing CG image
+(00.006172) 	Tree of 0 objects
+(00.006173) 	0x8.0x1
+(00.006175) 		| SubTree
+(00.006176) 		| 0x8.0x1 (self)
+(00.006178) 	--s
+(00.006274) Unfreezing tasks into 2
+(00.006286) Writing stats
+(00.006312) Dumping finished successfully
