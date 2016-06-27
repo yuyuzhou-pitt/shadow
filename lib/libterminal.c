@@ -1,4 +1,4 @@
-/* This file provides commands for the SRPC terminal.
+/* This file provides commands for the shadow terminal.
  * It divides into four parts:
  * 1. general
  * 2. port-mapper
@@ -144,6 +144,27 @@ int command2array(char *command, char options[3][32]){
     return 0;
 }
 
+
+struct PortMapperTable *parseRequestString(char *line){
+    char *option1, *option2, *option3, *option4, *option5, *option6, *option7, *option8;
+
+    AppProcess *app_process;
+    app_process = (AppProcess *)malloc(sizeof(AppProcess));
+
+    option1 = strtok_r(line, "|", &option2); //option2 is for temp use
+    option3 = strtok_r(option2, "|", &option4); //so does option4
+    option5 = strtok_r(option4, "|", &option6); //so does option6
+    option7 = strtok_r(option6, "|", &option8);
+
+//    snprintf(portMapperTable->server_ip, sizeof(portMapperTable->server_ip), "%s", option1);
+//    snprintf(portMapperTable->port_number, sizeof(portMapperTable->port_number), "%s", option3);
+//    snprintf(portMapperTable->program_name, sizeof(portMapperTable->program_name), "%s", option5);
+//    snprintf(portMapperTable->version_number, sizeof(portMapperTable->version_number), "%s", option7);
+//    snprintf(portMapperTable->procedure_name, strlen(option8), "%s", option8); //trim the last '\n'
+
+    return portMapperTable;
+}
+
 // exit the services
 int quit(){
     char confirm[4];
@@ -162,11 +183,11 @@ int quit(){
 
 int helpPortMapper(){
     fprintf(stderr, "\nUsage: <subcommand>\n");
-    fprintf(stderr, "A user interface for the SRPC system.\n\n");
+    fprintf(stderr, "A user interface for the shadow system.\n\n");
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  list      list the current services in port mapper table\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
+    fprintf(stderr, "  quit      stop socket and quit\n");
     return 0;
 }
 
@@ -213,14 +234,14 @@ int listPortMapper(){
 
 int helpServer(){
     fprintf(stderr, "\nUsage: <subcommand> [options]\n");
-    fprintf(stderr, "A user interface for the SRPC system.\n\n");
+    fprintf(stderr, "A user interface for the shadow system.\n\n");
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  register  <program-name> <version-number>\n");
     fprintf(stderr, "            register services into prot-mapper table\n");
     fprintf(stderr, "                <program-name>   the program name provided by this server\n");
     fprintf(stderr, "                <version-number> version number for the program\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
+    fprintf(stderr, "  quit      stop shadow socket and quit\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "For example:\n");
     fprintf(stderr, "1. To register Map Reduce Library version 1:\n");
@@ -234,46 +255,20 @@ int helpServer(){
 
 int helpClient(){
     fprintf(stderr, "\nUsage: <subcommand> [options]\n");
-    fprintf(stderr, "A user interface for the SRPC system.\n\n");
+    fprintf(stderr, "A user interface for the shadow system.\n\n");
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  request   <program-name> <version-number> <procedure>\n");
     fprintf(stderr, "		request server info for certain procedure provided by certain program of certain version\n");
     fprintf(stderr, "  execute   <program-name> <version-number> <procedure> <input_file> <out_putfile>\n");
     fprintf(stderr, "            request and call the remote procedure call\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
+    fprintf(stderr, "  quit      stop shadow socket and quit\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "For example:\n");
     fprintf(stderr, "1. To request Multipy in Scientific Library version 2:\n");
     fprintf(stderr, "# request ScientificLibrary 2 Multiply\n");
     fprintf(stderr, "2. To execute Index in Map Reduce Library version 1:\n");
     fprintf(stderr, "# execute MapReduceLibrary 1 Index ../input ../output\n\n");
-
-    return 0;
-}
-
-/****************
-* 5. minigoogle *
-*****************/
-
-int helpMiniGoogle(){
-    fprintf(stderr, "\nUsage: ./minigoogle <subcommand> [options]\n");
-    fprintf(stderr, "The command line MiniGoogle interface.\n\n");
-    fprintf(stderr, "Subcommands:\n");
-    fprintf(stderr, "  help      show this message\n");
-    fprintf(stderr, "  request   <program-name> <version-number> <procedure>\n");
-    fprintf(stderr, "            request server info for certain procedure provided by certain program of certain version\n");
-    fprintf(stderr, "  execute   <program-name> <version-number> <procedure> <input_file> <out_putfile>\n");
-    fprintf(stderr, "            request and call the remote procedure call\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
-    fprintf(stderr, "\n");
-    fprintf(stderr, "For example:\n");
-    fprintf(stderr, "1. To request Multipy in Scientific Library version 2:\n");
-    fprintf(stderr, "$ ./minigoogle request MapReduceLibrary 2 Search\n");
-    fprintf(stderr, "2. To execute Index in Map Reduce Library version 1:\n");
-    fprintf(stderr, "$ ./minigoogle execute MapReduceLibrary 1 Index ../data ../index\n");
-    fprintf(stderr, "3. To execute Search in Map Reduce Library version 1:\n");
-    fprintf(stderr, "$ ./minigoogle execute MapReduceLibrary 1 Search ../index ../output \"term1 term2\"\n\n");
 
     return 0;
 }
