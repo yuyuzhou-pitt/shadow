@@ -17,12 +17,12 @@
 #include "../lib/libterminal.h"
 
 
-/* Format for port mapper table:
+/* Format for register machine table:
  *   Server IP  | Sever Port | Program Name | Version | Procedure
  *   192.168.1,1| 54321      | ScientificLibrary | 1  | Multiply
 */
 
-Packet *genRegister(OptionsStruct *options, char *server_ip, char *port_mapper_ip){
+Packet *genRegister(OptionsStruct *options, char *manager_ip, char *supervisor_ip){
     struct Remote_Program_Struct *sciLibrary;
     //sciLibrary = (struct Remote_Program_Struct*)malloc(sizeof(struct Remote_Program_Struct)); //Packet with Register_Machineice type Data
     //sciLibrary = (*libraryPtr)();
@@ -30,7 +30,7 @@ Packet *genRegister(OptionsStruct *options, char *server_ip, char *port_mapper_i
     Register_Machine register_serv; // MUST NOT be pointer as to be send remote
     //snprintf(register_serv.program_name, sizeof(register_serv.program_name), "%s", options->option1);
     //snprintf(register_serv.version_number, sizeof(register_serv.version_number), "%s", options->option2);
-    //snprintf(register_serv.port_number, sizeof(register_serv.port_number), "%d", getPortNumber(server_ip));
+    //snprintf(register_serv.port_number, sizeof(register_serv.port_number), "%d", getPortNumber(manager_ip));
     //register_serv.procedure_number = sciLibrary->procedure_number;
     int pN;
     //for(pN=0; pN < sciLibrary->procedure_number; pN++){
@@ -41,8 +41,8 @@ Packet *genRegister(OptionsStruct *options, char *server_ip, char *port_mapper_i
     Packet *register_packet;
     register_packet = (Packet *)malloc(sizeof(Packet)); //Packet with Register_Machineice type Data
 
-    snprintf(register_packet->sender_ip, sizeof(register_packet->sender_ip), "%s", server_ip);
-    snprintf(register_packet->receiver_ip, sizeof(register_packet->receiver_ip), "%s", port_mapper_ip);
+    snprintf(register_packet->sender_ip, sizeof(register_packet->sender_ip), "%s", manager_ip);
+    snprintf(register_packet->receiver_ip, sizeof(register_packet->receiver_ip), "%s", supervisor_ip);
     snprintf(register_packet->packet_type, sizeof(register_packet->packet_type), "%s", "000"); // Register Packets (000)
 
     //register_packet->Data = (Register_Machine) register_serv; // Data

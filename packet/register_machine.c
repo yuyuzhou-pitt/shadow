@@ -17,7 +17,7 @@
 #include "../lib/libterminal.h"
 
 
-/* Format for port mapper table:
+/* Format for register machine table:
  *   Server IP  | Sever Port | Program Name | Version | Procedure
  *   192.168.1,1| 54321      | ScientificLibrary | 1  | Multiply
 */
@@ -47,7 +47,7 @@ int writeRegisterMachine(Packet *packet_recv, char *file){
             fprintf(stderr, "Error during copy!");
     }
 
-    int server_exists = 0; //for sending hello if it's a new server
+    int manager_exists = 0; //for sending hello if it's a new manager
     int dup_number = 0; //record the duplication numbers
     int i;
     //for(i=0;i<packet_recv->Data.procedure_number;i++){
@@ -77,12 +77,12 @@ int writeRegisterMachine(Packet *packet_recv, char *file){
             return -1;
         }
 
-        char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "write register into port mapper table. \n");
+        char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "write register into register machine table. \n");
         logging(LOGFILE, logmsg);
 
     //}
 
     unlinkFile(tempfile);
     free(machineRegisterTable);
-    return dup_number * 10 + server_exists;
+    return dup_number * 10 + manager_exists;
 }

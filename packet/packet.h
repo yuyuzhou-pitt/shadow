@@ -45,7 +45,7 @@ typedef struct Register_Machine_Ack{
     char packet_type[5]; //0001
     char version_number[8]; //why it's char?
     Machine machine;
-    int dup_numbers; //the program name on servers
+    int dup_numbers; //the program name on managers
 }Register_Machine_Ack;
 
 typedef struct Machine_Heartbeat{
