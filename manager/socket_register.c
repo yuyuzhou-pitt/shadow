@@ -61,9 +61,9 @@ void *sockhello(void *arg){
 
 /* thread for manager registeration */
 void *sockregister(void *arg){
-    struct OptionsStruct *options;
-    options = (struct OptionsStruct *)malloc(sizeof(struct OptionsStruct));
-    options = (struct OptionsStruct *) arg;
+    Machine *supervisor;
+    supervisor = (char *)malloc(sizeof(Machine));
+    supervisor = (Machine *)arg;
 
     int clientfd,sendbytes,recvbytes;
     struct hostent *host;
@@ -71,46 +71,9 @@ void *sockregister(void *arg){
 
     getaddr(hostname, addrstr); //get hostname and ip, getaddrinfo.h
    
-    /* try to get manager hostname and port from the host files (.<managername>) */
-    char remote_manager[32];
-    char remote_ipstr[32];
-    char remote_portstr[6]; // to store the port
-
-    memset(remote_ipstr, 0, sizeof(remote_ipstr));
-    memset(remote_portstr, 0, sizeof(remote_portstr));
-
     char logmsg[128];
-    snprintf(logmsg, sizeof(logmsg), "manager_lient(0x%x): busy wait for register machine starting up...\n", pthread_self());
+    snprintf(logmsg, sizeof(logmsg), "manager_client(0x%x): starting up...\n", pthread_self());
     logging(LOGFILE, logmsg);
-
-    int portFound = 0; // check port file exists or not
-    while(1){
-        memset(remote_portstr, 0, sizeof(remote_portstr)); 
-        /* Steps:
-         * 1) to find port file .<supervisor-ip> for supervisor
-         * 2) if port file do NOT exists, busy wait
-         * 3) if port file exists, communicate supervisor through this port
-         */
-
-        /* 1) go through all the direct_link_addr in cfg file */
-        char templine[32];
-
-        int iget;
-        /* 2) if port file do NOT exists, busy wait */
-        if((iget = getSupervisor(remote_portstr, remote_ipstr, SUPERVISOR_FILE)) < 0 ){ // read port file
-
-            sleep(READ_PORT_INTERVAL);
-            printf("client(0x%x): No available port found, make sure register machine started.\n", pthread_self());
-            printf("client(0x%x): wait %d seconds to try again..\n", pthread_self(), READ_PORT_INTERVAL);
-
-            //continue; // if file does not exists, continue
-        }
-        /* 3) if port file exists, communicate supervisor through this port*/
-        else if(strlen(remote_portstr) == 5){
-            portFound = 1;
-            break;
-        }
-    }
 
     /* There are 3 types of Packets to be exchanged via manager for registering:
      * 1) Register service (from manager to register machine)         (000)
@@ -118,36 +81,33 @@ void *sockregister(void *arg){
      * 3) Hello Packets (from manager to register machine)            (111)
      * */
 
-    if(portFound == 1){
-        if((host = gethostbyname(remote_ipstr)) == NULL ) { // got the remote manager
-            perror("gethostbyname");
-            exit(-1);
-        };
+    if((host = gethostbyname(supervisor->ip)) == NULL ) { // got the remote manager
+        perror("gethostbyname");
+        exit(-1);
+    };
 
-        /* connect to remote manager */
-        /*create socket*/
-        clientfd = Socket(AF_INET, SOCK_STREAM, 0);
+    /* connect to remote manager */
+    /*create socket*/
+    clientfd = Socket(AF_INET, SOCK_STREAM, 0);
 
-        /*parameters for sockaddr_in*/
-        sockaddr.sin_family = AF_INET;
-        sockaddr.sin_port = htons(atoi(remote_portstr));
-        sockaddr.sin_addr = *((struct in_addr *)host->h_addr);
-        bzero(&(sockaddr.sin_zero), 8);
+    /*parameters for sockaddr_in*/
+    sockaddr.sin_family = AF_INET;
+    sockaddr.sin_port = htons(supervisor->port);
+    sockaddr.sin_addr = *((struct in_addr *)host->h_addr);
+    bzero(&(sockaddr.sin_zero), 8);
 
-        /*connect to manager*/
-        Connect(clientfd,sockaddr,sizeof(sockaddr));
+    /*connect to manager*/
+    Connect(clientfd,sockaddr,sizeof(sockaddr));
 
-    }
 
     pthread_mutex_lock(&register_mutex);
 
     Packet *packet_req, *packet_reply;
 
     /* generate packet_req, provide:
-     * - program_name, version_number (options)
      * - sender_ip (addrstr)
      * - supervisor_ip (remote_ipstr)*/
-    packet_req = genRegister(options, addrstr, remote_ipstr); // msg to be sent out
+    packet_req = genRegister(addrstr, supervisor->ip); // msg to be sent out
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
     packet_reply = (Packet *)malloc(sizeof(Packet));
@@ -182,19 +142,18 @@ void *sockregister(void *arg){
     } // endof if(strcmp(packet_reply
 
     free(packet_reply);
-    free(options);
     close(clientfd);
     pthread_exit(0);
 }
 
 // start a client thread to register the services to register machine table
-int registerServices(struct OptionsStruct *options){
+int registerServices(Machine *machine){
     char logmsg[128];
     snprintf(logmsg, sizeof(logmsg), "(manager): socket client started, to be communicated with register machine.\n");
     logging(LOGFILE, logmsg); 
 
     pthread_t sockregisterid;
-    pthread_create(&sockregisterid, NULL, &sockregister, (void **)options);
+    pthread_create(&sockregisterid, NULL, &sockregister, (void *)machine);
     pthread_join(sockregisterid, NULL);
 
     return 0;
