@@ -36,67 +36,67 @@ typedef struct AppProcess{
 
 /*register machine to supervisor*/
 typedef struct Register_Machine{
-    char packet_type[5]; //0000
+    //char packet_type[5]; //0000
     AppProcess app_process;
     time_t date_time;
 }Register_Machine;
 
 typedef struct Register_Machine_Ack{
-    char packet_type[5]; //0001
+    //char packet_type[5]; //0001
     AppProcess app_process;
     time_t date_time;
 }Register_Machine_Ack;
 
 typedef struct Machine_Heartbeat{
-    char packet_type[5]; //0010
+    //char packet_type[5]; //0010
     AppProcess app_process;
     time_t date_time;
 }Machine_Heartbeat;
 
 typedef struct Launch_App{
-    char packet_type[5]; //0011
+    //char packet_type[5]; //0011
     AppProcess app_process;
     time_t date_time;
 }Launch_App;
 
 typedef struct Launch_App_Ack{
-    char packet_type[5]; //0100
+    //char packet_type[5]; //0100
     AppProcess app_process;
     time_t date_time;
 }Launch_App_Ack;
 
 typedef struct App_Heartbeat{
-    char packet_type[5]; //0101
+    //char packet_type[5]; //0101
     AppProcess app_process;
     time_t date_time;
 }App_Heartbeat;
 
 typedef struct Dump_App{
-    char packet_type[5]; //0110
+    //char packet_type[5]; //0110
     AppProcess app_process;
     time_t date_time;
 }Dump_App;
 
 typedef struct Dump_App_Ack{
-    char packet_type[5]; //0111
+    //char packet_type[5]; //0111
     AppProcess app_process;
     time_t date_time;
 }Dump_App_Ack;
 
 typedef struct Leap_App{
-    char packet_type[5]; //1000
+    //char packet_type[5]; //1000
     AppProcess app_process;
     time_t date_time;
 }Leap_App;
 
 typedef struct Leap_App_Ack{
-    char packet_type[5]; //1001
+    //char packet_type[5]; //1001
     AppProcess app_process;
     time_t date_time;
 }Leap_App_Ack;
 
 typedef struct Unknown{
-    char packet_type[5]; //1010
+    //char packet_type[5]; //1010
     AppProcess app_process;
     time_t date_time;
 }Unknown;
@@ -106,7 +106,7 @@ typedef struct Packet{
     char sender_ip[32];
     char receiver_ip[32];
 
-    //char packet_type[4];
+    char packet_type[4];
  
     #ifdef REGISTER_MACHINE
         Register_Machine Data;

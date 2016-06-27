@@ -24,8 +24,8 @@
 
 int writeRegisterMachine(Packet *packet_recv, char *file){
     char registerString[128];
-    Register_Machine *machineRegisterTable;
-    machineRegisterTable = (Register_Machine *)malloc(sizeof(Register_Machine));
+    AppProcess *app_process;
+    app_process = (AppProcess *)malloc(sizeof(app_process));
 
     char hostfile[17];
     memset(hostfile, 0, sizeof(hostfile));
@@ -53,20 +53,40 @@ int writeRegisterMachine(Packet *packet_recv, char *file){
     //for(i=0;i<packet_recv->Data.procedure_number;i++){
         /*printable str*/
         memset(registerString, 0, sizeof(registerString));
-        //snprintf(registerString, sizeof(registerString), "%s|%s|%s|%s|%s\n", \
-             packet_recv->sender_ip, packet_recv->Data.port_number, \
-             packet_recv->Data.program_name, packet_recv->Data.version_number, \
-             packet_recv->Data.procedure_names[i]);
+        snprintf(registerString, sizeof(registerString), "%s:%s\n", \
+             packet_recv->sender_ip, packet_recv->Data.app_process.main.port);
 
         /*check duplication before writing*/
-        int is_dup = 0; 
 
         FILE *table_fp;
         char *line = NULL;
         size_t len = 0;
         ssize_t read;
 
-        if (is_dup == 1){
+        /*do not check dup if file do not exists*/
+        if(file_exists == 1) {
+            if ((table_fp = fopen(tempfile,"r")) < 0){
+                char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "readfile: Failed to open file: %s\n", tempfile);
+                logging(LOGFILE, logmsg);
+                return -1;
+            }
+
+            while ((read = getline(&line, &len, table_fp)) != -1) {
+                char *manager_ip, *manager_port;
+                manager_ip = strtok_r(line, ":", &manager_port);
+
+                /*to find the register info which match the request program_name, version_number, and procedure_name*/
+                if(strcmp(manager_ip, packet_recv->Data.app_process.main.ip) == 0 &&
+                   strcmp(manager_port, packet_recv->Data.app_process.main.port) == 0){
+                    server_exists = 1;
+                    break; //jump out the while loop
+                }
+            }
+            if (line) free(line);
+            fclose(table_fp);
+        }
+
+        if (server_exists == 1){
             printf("Duplicate registration: %s", registerString);
             dup_number ++;
             //continue;
@@ -83,6 +103,5 @@ int writeRegisterMachine(Packet *packet_recv, char *file){
     //}
 
     unlinkFile(tempfile);
-    free(machineRegisterTable);
-    return dup_number * 10 + server_exists;
+    return server_exists;
 }

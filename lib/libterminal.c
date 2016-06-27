@@ -144,27 +144,6 @@ int command2array(char *command, char options[3][32]){
     return 0;
 }
 
-
-struct PortMapperTable *parseRequestString(char *line){
-    char *option1, *option2, *option3, *option4, *option5, *option6, *option7, *option8;
-
-    AppProcess *app_process;
-    app_process = (AppProcess *)malloc(sizeof(AppProcess));
-
-    option1 = strtok_r(line, "|", &option2); //option2 is for temp use
-    option3 = strtok_r(option2, "|", &option4); //so does option4
-    option5 = strtok_r(option4, "|", &option6); //so does option6
-    option7 = strtok_r(option6, "|", &option8);
-
-//    snprintf(portMapperTable->server_ip, sizeof(portMapperTable->server_ip), "%s", option1);
-//    snprintf(portMapperTable->port_number, sizeof(portMapperTable->port_number), "%s", option3);
-//    snprintf(portMapperTable->program_name, sizeof(portMapperTable->program_name), "%s", option5);
-//    snprintf(portMapperTable->version_number, sizeof(portMapperTable->version_number), "%s", option7);
-//    snprintf(portMapperTable->procedure_name, strlen(option8), "%s", option8); //trim the last '\n'
-
-    return portMapperTable;
-}
-
 // exit the services
 int quit(){
     char confirm[4];
