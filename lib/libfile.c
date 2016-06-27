@@ -279,7 +279,7 @@ int unlinkPortFile(char *file){
     return 0;
 }
 
-/*write ip:port to port mapper file*/
+/*write ip:port to register machine file*/
 int writeSupervisor(int port, char *hostip, char *file){
 
     char portstr[6];
@@ -327,7 +327,7 @@ int getSupervisor(char portstr[6], char ipstr[32], char *file){
         return -1;
     }
 
-    //PORT_MAPPER_FILE is in the format ipstr:portstr
+    //SUPERVISOR_FILE is in the format ipstr:portstr
     strsplit = templine;
     split1 = strtok_r(strsplit, ":", &split2);
     snprintf(portstr, sizeof(pm_portstr), "%s", split1);

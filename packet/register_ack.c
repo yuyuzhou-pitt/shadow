@@ -12,7 +12,7 @@
 /* typedef struct Register_Machine_Acknowledge{
     //char packet_type[3]; //001
     char version_number[8]; //why it's char?
-    char program_name[30]; //the program name on servers
+    char program_name[30]; //the program name on managers
 }Register_Machine_Ack;
 typedef struct Packet{
     char sender_ip[32];

@@ -48,17 +48,17 @@ void *supervisor_thread(void *arg){
     char logmsg[128]; 
 
     /* There are 5 types of Packets to be exchanged via supervisor:
-     * 1) Register service (from server to port mapper)         (000)
-     * 2) Register acknowledge (from port mapper to server)     (001)
-     * 3) Hello Packets (from server to port mapper)            (111)
-     * 4) Request server location (from client to portmapper)   (010)
-     * 5) Response server location (from portmapper to client)  (011)
+     * 1) Register service (from manager to supervisor)         (000)
+     * 2) Register acknowledge (from supervisor to manager)     (001)
+     * 3) Hello Packets (from manager to supervisor)            (111)
+     * 4) Request manager location (from client to supervisor)   (010)
+     * 5) Response manager location (from supervisor to client)  (011)
      * */
 
     struct timeval *tmpcost, cost, timer; // use high quality timer to calculate the ping cost
     struct timezone tzp;
 
-    /* keep receiving Data from server or client */
+    /* keep receiving Data from manager or client */
     //while(1){
 
     gettimeofday(&timer, &tzp);
@@ -76,20 +76,20 @@ void *supervisor_thread(void *arg){
     /* Register service */
     if(strcmp(packet_recv->packet_type, "000") == 0){
         int dup_register = 0;
-        //snprintf(logmsg, sizeof(logmsg), "serverthread(0x%x): packet_recv type: %s\n", pthread_self(), packet_recv->packet_type);
+        //snprintf(logmsg, sizeof(logmsg), "managerthread(0x%x): packet_recv type: %s\n", pthread_self(), packet_recv->packet_type);
         //logging(LOGFILE, logmsg);
         dup_register = writeRegisterMachine(packet_recv, REGISTER_MACHINE_FILE);
         sendRegisterReply(sockfd, packet_recv, dup_register);
     }
     /* Hello packet */
     else if(strcmp(packet_recv->packet_type, "111") == 0){
-        snprintf(logmsg, sizeof(logmsg), "serverthread(0x%x): packet_recv type: %s\n", pthread_self(), packet_recv->packet_type);
+        snprintf(logmsg, sizeof(logmsg), "managerthread(0x%x): packet_recv type: %s\n", pthread_self(), packet_recv->packet_type);
         logging(LOGFILE, logmsg);
         //sendHello(sockfd, router, threadParam->port);
     }
-    /* Request server location */
+    /* Request manager location */
     else if(strcmp(packet_recv->packet_type, "010") == 0 ){
-        snprintf(logmsg, sizeof(logmsg), "serverthread(0x%x): packet_recv type: %s\n", pthread_self(), packet_recv->packet_type);
+        snprintf(logmsg, sizeof(logmsg), "managerthread(0x%x): packet_recv type: %s\n", pthread_self(), packet_recv->packet_type);
         logging(LOGFILE, logmsg);
         /*record the chosen response into loadlink*/
         //sendRequestReply(sockfd, packet_recv);
@@ -99,7 +99,7 @@ void *supervisor_thread(void *arg){
     pthread_mutex_unlock(&mutex);
 
     shutdown(sockfd, SHUT_RDWR);
-    //snprintf(logmsg, sizeof(logmsg), "serverthread(0x%x): served request, exiting thread\n", pthread_self());
+    //snprintf(logmsg, sizeof(logmsg), "managerthread(0x%x): served request, exiting thread\n", pthread_self());
     //logging(LOGFILE, logmsg);
 
     //pthread_exit(0);
@@ -110,7 +110,7 @@ void *supervisor_thread(void *arg){
 
 void *sock_supervisor(void *arg){
 
-    struct sockaddr_in server_sockaddr, client_sockaddr;
+    struct sockaddr_in manager_sockaddr, client_sockaddr;
     int sin_size, recvbytes, sendbytes;
     int sockfd, client_fd, desc_ready;
     char logmsg[128];
@@ -129,20 +129,20 @@ void *sock_supervisor(void *arg){
     sockfd = Socket(AF_INET,SOCK_STREAM,0);
 
     /* set parameters for sockaddr_in */
-    server_sockaddr.sin_family = AF_INET;
-    server_sockaddr.sin_port = htons(PORT); //0, assign port automatically in 1024 ~ 65535
-    server_sockaddr.sin_addr.s_addr = htonl(INADDR_ANY); //0, got local IP automatically
-    bzero(&(server_sockaddr.sin_zero), 8);
+    manager_sockaddr.sin_family = AF_INET;
+    manager_sockaddr.sin_port = htons(PORT); //0, assign port automatically in 1024 ~ 65535
+    manager_sockaddr.sin_addr.s_addr = htonl(INADDR_ANY); //0, got local IP automatically
+    bzero(&(manager_sockaddr.sin_zero), 8);
    
     int i = 1;//enable reuse the combination of local address and socket
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &i, sizeof(i));
-    Bind(sockfd, server_sockaddr);
+    Bind(sockfd, manager_sockaddr);
 
     getaddr(hostname, addrstr); //get hostname and ip, getaddrinfo.h
-    port = Getsockname(sockfd, server_sockaddr, sin_size);  /* Get the port number assigned*/
+    port = Getsockname(sockfd, manager_sockaddr, sin_size);  /* Get the port number assigned*/
     writeSupervisor(port, addrstr, SUPERVISOR_FILE);
     
-    snprintf(logmsg, sizeof(logmsg), "sockserver: Server %s (%s) is setup on port: %d\n", addrstr, hostname, port);
+    snprintf(logmsg, sizeof(logmsg), "sockmanager: Server %s (%s) is setup on port: %d\n", addrstr, hostname, port);
     logging(LOGFILE, logmsg);
     Listen(sockfd, MAX_QUE_CONN_NM);
    
@@ -183,7 +183,7 @@ void *sock_supervisor(void *arg){
 
         switch(nready){
             case -1:
-                printf("sockserver: errno: %d.\n", errno);
+                printf("sockmanager: errno: %d.\n", errno);
                 perror("\nSELECT: unexpected error occured.\n");
                 logging(LOGFILE, "\nSELECT: unexpected error occured.\n");
 
@@ -201,12 +201,12 @@ void *sock_supervisor(void *arg){
                 break;
             case 0:
                 /* timeout occuired */
-                printf("sockserver: TIMEOUT... %d.\n", errno);
+                printf("sockmanager: TIMEOUT... %d.\n", errno);
                 status=-1;
                 break;
             default:
                 if (FD_ISSET(sockfd, &ready_set)){
-                    //snprintf(logmsg, sizeof(logmsg), "sockserver(0x%x): Listening socket is readable\n", pthread_self());
+                    //snprintf(logmsg, sizeof(logmsg), "sockmanager(0x%x): Listening socket is readable\n", pthread_self());
                     //logging(LOGFILE, logmsg);
                     /* wait for connection */
                     client_fd = Accept(sockfd, client_sockaddr, sin_size);
@@ -218,7 +218,7 @@ void *sock_supervisor(void *arg){
 
                     FD_SET(client_fd, &test_set);
                     if (client_fd > maxfd) maxfd = client_fd;
-                    snprintf(logmsg, sizeof(logmsg), "sockserver(0x%x): Descriptor %d is readable\n",  pthread_self(), client_fd);
+                    snprintf(logmsg, sizeof(logmsg), "sockmanager(0x%x): Descriptor %d is readable\n",  pthread_self(), client_fd);
                     logging(LOGFILE, logmsg);
                     pthread_create(&threadid[iThread], &attr, &supervisor_thread, (void *)client_fd);
                     pthread_join(threadid[iThread], NULL);

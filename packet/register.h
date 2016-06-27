@@ -6,6 +6,6 @@
 #include "packet.h"
 #include "../lib/libterminal.h"
 
-Packet *genRegister(OptionsStruct *options, char *server_ip, char *port_mapper_ip);
+Packet *genRegister(OptionsStruct *options, char *manager_ip, char *supervisor_ip);
 
 #endif

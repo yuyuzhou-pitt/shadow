@@ -93,11 +93,11 @@ int Recvfrom(int sockfd, Packet *packet, int size, int flag, struct sockaddr *so
     return recvbytes;
 }
 
-/*wrap recvfrom server, sockaddr is NULL*/
+/*wrap recvfrom manager, sockaddr is NULL*/
 int RecvfromServer(int sockfd, Packet *packet, int size, int flag){
     int recvbytes;
     if ((recvbytes = recvfrom(sockfd, packet, size, flag, NULL, NULL)) < 0){
-        perror("recvfrom_server");
+        perror("recvfrom_manager");
         return -1;
     }
     char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "RecvfromServer message: %s\n", packet->sender_ip);

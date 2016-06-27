@@ -1,6 +1,6 @@
 /* SRPC Port-Mapper, the bridge between RPC Server and Client
  *  1. Port Mapper receives registration from Server and stores it into Port 
- *     Mapper Table. The format of Port mapper Table looks like below:
+ *     Mapper Table. The format of register machine Table looks like below:
  *       ServerIP | ServerPort | ProgramName | Version | Procedure
  *  2. Port Mapper also responses for the request from Client request for the
  *     services information in Port Mapper Table.
@@ -55,11 +55,11 @@ int main(int argc, char *argv[]){
     pthread_attr_setschedpolicy(&attr, SCHED_RR); // Round Robin scheduling for threads 
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED); // Don't want threads (particualrly main)
 
-    /* start port mapper socket thread */
+    /* start register machine socket thread */
     int sockfd = 0;
-    pthread_t sockserverid; 
-    pthread_create(&sockserverid, NULL, &sock_supervisor, (void *)sockfd);
-    fprintf(stdout, "(supervisor): socket server start up.\n");
+    pthread_t sockmanagerid; 
+    pthread_create(&sockmanagerid, NULL, &sock_supervisor, (void *)sockfd);
+    fprintf(stdout, "(supervisor): socket manager start up.\n");
 
     fprintf(stdout, "(supervisor): please track log file for detail: %s\n", LOGFILE);
     fprintf(stdout, "\n== WELCOME TO TERMINAL FOR SHADOW! ==\n");
@@ -101,6 +101,6 @@ int main(int argc, char *argv[]){
     }
 
     unlinkUpperFile(REGISTER_MACHINE_FILE);
-    //pthread_join(sockserverid, NULL);
+    //pthread_join(sockmanagerid, NULL);
     return 0;
 }

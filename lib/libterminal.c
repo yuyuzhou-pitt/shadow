@@ -1,8 +1,8 @@
 /* This file provides commands for the shadow terminal.
  * It divides into four parts:
  * 1. general
- * 2. port-mapper
- * 3. server
+ * 2. supervisor
+ * 3. manager
  * 4. client
  */
 
@@ -157,7 +157,7 @@ int quit(){
 }
 
 /*****************
-* 2. port-mapper *
+* 2. supervisor *
 *****************/
 
 int helpPortMapper(){
@@ -165,12 +165,12 @@ int helpPortMapper(){
     fprintf(stderr, "A user interface for the shadow system.\n\n");
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
-    fprintf(stderr, "  list      list the current services in port mapper table\n");
-    fprintf(stderr, "  quit      stop socket and quit\n");
+    fprintf(stderr, "  list      list the current services in register machine table\n");
+    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
     return 0;
 }
 
-/*for port-mapper terminal, to print the requst*/
+/*for supervisor terminal, to print the requst*/
 int listPortMapper(){
     FILE *fp;
     char *line = NULL;
@@ -208,7 +208,7 @@ int listPortMapper(){
 }
 
 /************
-* 3. server *
+* 3. manager *
 ************/
 
 int helpServer(){
@@ -217,8 +217,8 @@ int helpServer(){
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  register  <program-name> <version-number>\n");
-    fprintf(stderr, "            register services into prot-mapper table\n");
-    fprintf(stderr, "                <program-name>   the program name provided by this server\n");
+    fprintf(stderr, "            register services into register machine table\n");
+    fprintf(stderr, "                <program-name>   the program name provided by this manager\n");
     fprintf(stderr, "                <version-number> version number for the program\n");
     fprintf(stderr, "  quit      stop shadow socket and quit\n");
     fprintf(stderr, "\n");
@@ -238,7 +238,7 @@ int helpClient(){
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  request   <program-name> <version-number> <procedure>\n");
-    fprintf(stderr, "		request server info for certain procedure provided by certain program of certain version\n");
+    fprintf(stderr, "		request manager info for certain procedure provided by certain program of certain version\n");
     fprintf(stderr, "  execute   <program-name> <version-number> <procedure> <input_file> <out_putfile>\n");
     fprintf(stderr, "            request and call the remote procedure call\n");
     fprintf(stderr, "  quit      stop shadow socket and quit\n");
@@ -251,3 +251,32 @@ int helpClient(){
 
     return 0;
 }
+<<<<<<< HEAD
+=======
+
+/****************
+* 5. minigoogle *
+*****************/
+
+int helpMiniGoogle(){
+    fprintf(stderr, "\nUsage: ./minigoogle <subcommand> [options]\n");
+    fprintf(stderr, "The command line MiniGoogle interface.\n\n");
+    fprintf(stderr, "Subcommands:\n");
+    fprintf(stderr, "  help      show this message\n");
+    fprintf(stderr, "  request   <program-name> <version-number> <procedure>\n");
+    fprintf(stderr, "            request manager info for certain procedure provided by certain program of certain version\n");
+    fprintf(stderr, "  execute   <program-name> <version-number> <procedure> <input_file> <out_putfile>\n");
+    fprintf(stderr, "            request and call the remote procedure call\n");
+    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
+    fprintf(stderr, "\n");
+    fprintf(stderr, "For example:\n");
+    fprintf(stderr, "1. To request Multipy in Scientific Library version 2:\n");
+    fprintf(stderr, "$ ./minigoogle request MapReduceLibrary 2 Search\n");
+    fprintf(stderr, "2. To execute Index in Map Reduce Library version 1:\n");
+    fprintf(stderr, "$ ./minigoogle execute MapReduceLibrary 1 Index ../data ../index\n");
+    fprintf(stderr, "3. To execute Search in Map Reduce Library version 1:\n");
+    fprintf(stderr, "$ ./minigoogle execute MapReduceLibrary 1 Search ../index ../output \"term1 term2\"\n\n");
+
+    return 0;
+}
+>>>>>>> e42f66a532933a4ec902f6e2a56551884c03a0f1
