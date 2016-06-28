@@ -1,0 +1,579 @@
+(00.000052) Warn  (crtools.c:528): Using -t with criu restore is obsoleted
+(00.000222) TCP recv queue memory limit is 3145728
+(00.000258) cpu: fpu:1 fxsr:1 xsave:1
+(00.000908) vdso: Parsing at 7fff247fe000 7fff24800000
+(00.000914) vdso: PT_LOAD p_vaddr: 0
+(00.000917) vdso: DT_HASH: 0x120
+(00.000919) vdso: DT_STRTAB: 0x268
+(00.000921) vdso: DT_SYMTAB: 0x160
+(00.000923) vdso: DT_STRSZ: 94
+(00.000925) vdso: DT_SYMENT: 24
+(00.000928) vdso: nbucket 3 nchain 11 bucket 0x7fff247fe128 chain 0x7fff247fe134
+(00.000932) vdso: rt [vdso] 7fff247fe000-7fff24800000 [vvar] 7fff247fc000-7fff247fe000
+(00.000980) Reading image tree
+(00.001006) Add mnt ns 5 pid 5414
+(00.001015) Migrating process tree (GID 5414->5460 SID 4644->4644)
+(00.001018) Will restore in 0 namespaces
+(00.001021) NS mask to use 0
+(00.001026) Collecting 36/21 (flags 0)
+(00.001033)  `- ... done
+(00.001055) cg: Preparing cgroups yard
+(00.003223) cg: Opening .criu.cgyard.AwZKKB as cg yard
+(00.003241) cg: 	Making subdir .criu.cgyard.AwZKKB/cpuset (cpuset)
+(00.004010) cg: 	Making subdir .criu.cgyard.AwZKKB/cpu,cpuacct (cpu,cpuacct)
+(00.004709) cg: 	Making subdir .criu.cgyard.AwZKKB/memory (memory)
+(00.005400) cg: 	Making subdir .criu.cgyard.AwZKKB/devices (devices)
+(00.006090) cg: 	Making subdir .criu.cgyard.AwZKKB/freezer (freezer)
+(00.006785) cg: 	Making subdir .criu.cgyard.AwZKKB/net_cls,net_prio (net_cls,net_prio)
+(00.007475) cg: 	Making subdir .criu.cgyard.AwZKKB/blkio (blkio)
+(00.008425) cg: 	Making subdir .criu.cgyard.AwZKKB/perf_event (perf_event)
+(00.009212) cg: 	Making subdir .criu.cgyard.AwZKKB/hugetlb (hugetlb)
+(00.009326) cg: 	Making subdir .criu.cgyard.AwZKKB/systemd (none,name=systemd)
+(00.009455) Forking task with 5414 pid (flags 0x0)
+(00.009555) Wait until namespaces are created
+(00.009646) Running setup-namespaces scripts
+(00.009660)   5414: Restoring namespaces 5414 flags 0x0
+(00.009676)   5414: Add mnt ns 0 pid 5414
+(00.009976)   5414: 	type sysfs source sysfs mnt_id 0xf s_dev 0xf / @ ./sys flags 0x30000e options seclabel
+(00.009988)   5414: 	type proc source proc mnt_id 0x10 s_dev 0x3 / @ ./proc flags 0x30000e options 
+(00.009993)   5414: 	type devtmpfs source devtmpfs mnt_id 0x11 s_dev 0x5 / @ ./dev flags 0x100002 options seclabel,size=490388k,nr_inodes=122597,mode=755
+(00.009998)   5414: 	type securityfs source securityfs mnt_id 0x12 s_dev 0x10 / @ ./sys/kernel/security flags 0x30000e options 
+(00.010002)   5414: 	type tmpfs source tmpfs mnt_id 0x13 s_dev 0x11 / @ ./dev/shm flags 0x100006 options seclabel
+(00.010007)   5414: 	type devpts source devpts mnt_id 0x14 s_dev 0xb / @ ./dev/pts flags 0x30000a options seclabel,gid=5,mode=620,ptmxmode=000
+(00.010024)   5414: 	type tmpfs source tmpfs mnt_id 0x15 s_dev 0x12 / @ ./run flags 0x100006 options seclabel,mode=755
+(00.010029)   5414: 	type tmpfs source tmpfs mnt_id 0x16 s_dev 0x13 / @ ./sys/fs/cgroup flags 0x10000f options seclabel,mode=755
+(00.010034)   5414: 	type cgroup source cgroup mnt_id 0x17 s_dev 0x14 / @ ./sys/fs/cgroup/systemd flags 0x30000e options xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd
+(00.010040)   5414: 	type pstore source pstore mnt_id 0x18 s_dev 0x15 / @ ./sys/fs/pstore flags 0x30000e options 
+(00.010058)   5414: 	type cgroup source cgroup mnt_id 0x19 s_dev 0x16 / @ ./sys/fs/cgroup/cpuset flags 0x30000e options cpuset
+(00.010063)   5414: 	type cgroup source cgroup mnt_id 0x1a s_dev 0x17 / @ ./sys/fs/cgroup/cpu,cpuacct flags 0x30000e options cpu,cpuacct
+(00.010067)   5414: 	type cgroup source cgroup mnt_id 0x1b s_dev 0x18 / @ ./sys/fs/cgroup/memory flags 0x30000e options memory
+(00.010071)   5414: 	type cgroup source cgroup mnt_id 0x1c s_dev 0x19 / @ ./sys/fs/cgroup/devices flags 0x30000e options devices
+(00.010075)   5414: 	type cgroup source cgroup mnt_id 0x1d s_dev 0x1a / @ ./sys/fs/cgroup/freezer flags 0x30000e options freezer
+(00.010079)   5414: 	type cgroup source cgroup mnt_id 0x1e s_dev 0x1b / @ ./sys/fs/cgroup/net_cls,net_prio flags 0x30000e options net_cls,net_prio
+(00.010083)   5414: 	type cgroup source cgroup mnt_id 0x1f s_dev 0x1c / @ ./sys/fs/cgroup/blkio flags 0x30000e options blkio
+(00.010093)   5414: 	type cgroup source cgroup mnt_id 0x20 s_dev 0x1d / @ ./sys/fs/cgroup/perf_event flags 0x30000e options perf_event
+(00.010099)   5414: 	type cgroup source cgroup mnt_id 0x21 s_dev 0x1e / @ ./sys/fs/cgroup/hugetlb flags 0x30000e options hugetlb
+(00.010103)   5414: 	type configfs source configfs mnt_id 0x36 s_dev 0x1f / @ ./sys/kernel/config flags 0x300000 options 
+(00.010124)   5414: 	type ext4 source /dev/mapper/fedora--server-root mnt_id 0x39 s_dev 0xfd00000 / @ ./ flags 0x300000 options seclabel,data=ordered
+(00.010128)   5414: 	type selinuxfs source selinuxfs mnt_id 0x22 s_dev 0xe / @ ./sys/fs/selinux flags 0x300000 options 
+(00.010133)   5414: 	type autofs source systemd-1 mnt_id 0x23 s_dev 0x21 / @ ./proc/sys/fs/binfmt_misc flags 0x300000 options fd=28,pgrp=1,timeout=300,minproto=5,maxproto=5,direct
+(00.010137)   5414: 	type hugetlbfs source hugetlbfs mnt_id 0x24 s_dev 0x22 / @ ./dev/hugepages flags 0x300000 options seclabel
+(00.010143)   5414: 	type tmpfs source tmpfs mnt_id 0x25 s_dev 0x23 / @ ./tmp flags 0x100000 options seclabel
+(00.010147)   5414: 	type mqueue source mqueue mnt_id 0x26 s_dev 0xd / @ ./dev/mqueue flags 0x300000 options seclabel
+(00.010151)   5414: 	type debugfs source debugfs mnt_id 0x27 s_dev 0x6 / @ ./sys/kernel/debug flags 0x300000 options 
+(00.010155)   5414: 	type ext4 source /dev/sda1 mnt_id 0x47 s_dev 0x800001 / @ ./boot flags 0x300000 options seclabel,data=ordered
+(00.010160)   5414: 	type tmpfs source tmpfs mnt_id 0x4b s_dev 0x25 / @ ./run/user/1000 flags 0x300006 options seclabel,size=100184k,mode=700,uid=1000,gid=1000
+(00.010164)   5414: 	type rpc_pipefs source sunrpc mnt_id 0x49 s_dev 0x24 / @ ./var/lib/nfs/rpc_pipefs flags 0x300000 options 
+(00.010168)   5414: 	type nfsd source nfsd mnt_id 0x4d s_dev 0x26 / @ ./proc/fs/nfsd flags 0x300000 options 
+(00.010183)   5414: 	type tmpfs source none mnt_id 0x4f s_dev 0x27 / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB flags 0x200000 options seclabel
+(00.010187)   5414: 	type cgroup source none mnt_id 0x51 s_dev 0x16 / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/cpuset flags 0x200000 options cpuset
+(00.010193)   5414: 	type cgroup source none mnt_id 0x52 s_dev 0x17 / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/cpu,cpuacct flags 0x200000 options cpu,cpuacct
+(00.010197)   5414: 	type cgroup source none mnt_id 0x53 s_dev 0x18 / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/memory flags 0x200000 options memory
+(00.010201)   5414: 	type cgroup source none mnt_id 0x54 s_dev 0x19 / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/devices flags 0x200000 options devices
+(00.010204)   5414: 	type cgroup source none mnt_id 0x55 s_dev 0x1a / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/freezer flags 0x200000 options freezer
+(00.010208)   5414: 	type cgroup source none mnt_id 0x56 s_dev 0x1b / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/net_cls,net_prio flags 0x200000 options net_cls,net_prio
+(00.010212)   5414: 	type cgroup source none mnt_id 0x57 s_dev 0x1c / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/blkio flags 0x200000 options blkio
+(00.010220)   5414: 	type cgroup source none mnt_id 0x58 s_dev 0x1d / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/perf_event flags 0x200000 options perf_event
+(00.010224)   5414: 	type cgroup source none mnt_id 0x59 s_dev 0x1e / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/hugetlb flags 0x200000 options hugetlb
+(00.010230)   5414: 	type cgroup source none mnt_id 0x5a s_dev 0x14 / @ ./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/systemd flags 0x200000 options xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd
+(00.010243)   5414: Building mountpoints tree
+(00.010247)   5414: 	Building plain mount tree
+(00.010248)   5414: 		Working on 90->79
+(00.010250)   5414: 		Working on 89->79
+(00.010255)   5414: 		Working on 88->79
+(00.010256)   5414: 		Working on 87->79
+(00.010258)   5414: 		Working on 86->79
+(00.010259)   5414: 		Working on 85->79
+(00.010261)   5414: 		Working on 84->79
+(00.010262)   5414: 		Working on 83->79
+(00.010263)   5414: 		Working on 82->79
+(00.010265)   5414: 		Working on 81->79
+(00.010266)   5414: 		Working on 79->57
+(00.010268)   5414: 		Working on 77->16
+(00.010270)   5414: 		Working on 73->57
+(00.010271)   5414: 		Working on 75->21
+(00.010273)   5414: 		Working on 71->57
+(00.010274)   5414: 		Working on 39->15
+(00.010275)   5414: 		Working on 38->17
+(00.010277)   5414: 		Working on 37->57
+(00.010278)   5414: 		Working on 36->17
+(00.010280)   5414: 		Working on 35->16
+(00.010281)   5414: 		Working on 34->15
+(00.010283)   5414: 		Working on 57->0
+(00.010284)   5414: 		Working on 54->15
+(00.010286)   5414: 		Working on 33->22
+(00.010287)   5414: 		Working on 32->22
+(00.010289)   5414: 		Working on 31->22
+(00.010290)   5414: 		Working on 30->22
+(00.010292)   5414: 		Working on 29->22
+(00.010293)   5414: 		Working on 28->22
+(00.010295)   5414: 		Working on 27->22
+(00.010296)   5414: 		Working on 26->22
+(00.010297)   5414: 		Working on 25->22
+(00.010299)   5414: 		Working on 24->15
+(00.010300)   5414: 		Working on 23->22
+(00.010302)   5414: 		Working on 22->15
+(00.010303)   5414: 		Working on 21->57
+(00.010305)   5414: 		Working on 20->17
+(00.010306)   5414: 		Working on 19->17
+(00.010308)   5414: 		Working on 18->15
+(00.010309)   5414: 		Working on 17->57
+(00.010310)   5414: 		Working on 16->57
+(00.010312)   5414: 		Working on 15->57
+(00.010313)   5414: 	Resorting siblings on 57
+(00.010315)   5414: 	Resorting siblings on 79
+(00.010317)   5414: 	Resorting siblings on 90
+(00.010318)   5414: 	Resorting siblings on 89
+(00.010320)   5414: 	Resorting siblings on 88
+(00.010321)   5414: 	Resorting siblings on 87
+(00.010323)   5414: 	Resorting siblings on 86
+(00.010324)   5414: 	Resorting siblings on 85
+(00.010326)   5414: 	Resorting siblings on 84
+(00.010327)   5414: 	Resorting siblings on 83
+(00.010329)   5414: 	Resorting siblings on 82
+(00.010330)   5414: 	Resorting siblings on 81
+(00.010332)   5414: 	Resorting siblings on 73
+(00.010333)   5414: 	Resorting siblings on 71
+(00.010335)   5414: 	Resorting siblings on 37
+(00.010336)   5414: 	Resorting siblings on 21
+(00.010338)   5414: 	Resorting siblings on 75
+(00.010339)   5414: 	Resorting siblings on 17
+(00.010340)   5414: 	Resorting siblings on 38
+(00.010342)   5414: 	Resorting siblings on 36
+(00.010343)   5414: 	Resorting siblings on 20
+(00.010345)   5414: 	Resorting siblings on 19
+(00.010346)   5414: 	Resorting siblings on 16
+(00.010348)   5414: 	Resorting siblings on 77
+(00.010349)   5414: 	Resorting siblings on 35
+(00.010350)   5414: 	Resorting siblings on 15
+(00.010352)   5414: 	Resorting siblings on 39
+(00.010353)   5414: 	Resorting siblings on 34
+(00.010355)   5414: 	Resorting siblings on 54
+(00.010356)   5414: 	Resorting siblings on 24
+(00.010358)   5414: 	Resorting siblings on 22
+(00.010359)   5414: 	Resorting siblings on 33
+(00.010360)   5414: 	Resorting siblings on 32
+(00.010362)   5414: 	Resorting siblings on 31
+(00.010363)   5414: 	Resorting siblings on 30
+(00.010365)   5414: 	Resorting siblings on 29
+(00.010366)   5414: 	Resorting siblings on 28
+(00.010368)   5414: 	Resorting siblings on 27
+(00.010369)   5414: 	Resorting siblings on 26
+(00.010370)   5414: 	Resorting siblings on 25
+(00.010372)   5414: 	Resorting siblings on 23
+(00.010373)   5414: 	Resorting siblings on 18
+(00.010375)   5414: Done:
+(00.010376)   5414: [./](57->0)
+(00.010378)   5414:  [./boot](71->57)
+(00.010380)   5414:  <--
+(00.010381)   5414:  [./sys](15->57)
+(00.010383)   5414:   [./sys/kernel/debug](39->15)
+(00.010384)   5414:   <--
+(00.010386)   5414:   [./sys/kernel/security](18->15)
+(00.010387)   5414:   <--
+(00.010389)   5414:   [./sys/fs/cgroup](22->15)
+(00.010390)   5414:    [./sys/fs/cgroup/hugetlb](33->22)
+(00.010392)   5414:    <--
+(00.010393)   5414:    [./sys/fs/cgroup/systemd](23->22)
+(00.010395)   5414:    <--
+(00.010396)   5414:    [./sys/fs/cgroup/cpuset](25->22)
+(00.010400)   5414:    <--
+(00.010402)   5414:    [./sys/fs/cgroup/cpu,cpuacct](26->22)
+(00.010403)   5414:    <--
+(00.010405)   5414:    [./sys/fs/cgroup/memory](27->22)
+(00.010406)   5414:    <--
+(00.010408)   5414:    [./sys/fs/cgroup/devices](28->22)
+(00.010409)   5414:    <--
+(00.010411)   5414:    [./sys/fs/cgroup/freezer](29->22)
+(00.010412)   5414:    <--
+(00.010414)   5414:    [./sys/fs/cgroup/net_cls,net_prio](30->22)
+(00.010415)   5414:    <--
+(00.010417)   5414:    [./sys/fs/cgroup/blkio](31->22)
+(00.010418)   5414:    <--
+(00.010420)   5414:    [./sys/fs/cgroup/perf_event](32->22)
+(00.010421)   5414:    <--
+(00.010423)   5414:   <--
+(00.010424)   5414:   [./sys/fs/pstore](24->15)
+(00.010426)   5414:   <--
+(00.010427)   5414:   [./sys/kernel/config](54->15)
+(00.010429)   5414:   <--
+(00.010430)   5414:   [./sys/fs/selinux](34->15)
+(00.010432)   5414:   <--
+(00.010433)   5414:  <--
+(00.010435)   5414:  [./proc](16->57)
+(00.010436)   5414:   [./proc/fs/nfsd](77->16)
+(00.010438)   5414:   <--
+(00.010439)   5414:   [./proc/sys/fs/binfmt_misc](35->16)
+(00.010441)   5414:   <--
+(00.010442)   5414:  <--
+(00.010444)   5414:  [./dev](17->57)
+(00.010445)   5414:   [./dev/mqueue](38->17)
+(00.010447)   5414:   <--
+(00.010448)   5414:   [./dev/shm](19->17)
+(00.010450)   5414:   <--
+(00.010451)   5414:   [./dev/pts](20->17)
+(00.010453)   5414:   <--
+(00.010454)   5414:   [./dev/hugepages](36->17)
+(00.010456)   5414:   <--
+(00.010457)   5414:  <--
+(00.010458)   5414:  [./run](21->57)
+(00.010460)   5414:   [./run/user/1000](75->21)
+(00.010462)   5414:   <--
+(00.010463)   5414:  <--
+(00.010464)   5414:  [./tmp](37->57)
+(00.010466)   5414:  <--
+(00.010467)   5414:  [./var/lib/nfs/rpc_pipefs](73->57)
+(00.010469)   5414:  <--
+(00.010470)   5414:  [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB](79->57)
+(00.010472)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/systemd](90->79)
+(00.010474)   5414:   <--
+(00.010475)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/cpuset](81->79)
+(00.010477)   5414:   <--
+(00.010478)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/cpu,cpuacct](82->79)
+(00.010480)   5414:   <--
+(00.010481)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/memory](83->79)
+(00.010483)   5414:   <--
+(00.010484)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/devices](84->79)
+(00.010486)   5414:   <--
+(00.010487)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/freezer](85->79)
+(00.010489)   5414:   <--
+(00.010490)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/net_cls,net_prio](86->79)
+(00.010492)   5414:   <--
+(00.010493)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/blkio](87->79)
+(00.010495)   5414:   <--
+(00.010496)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/perf_event](88->79)
+(00.010498)   5414:   <--
+(00.010499)   5414:   [./home/yuyuzhou/code/shadow/application/log/5414/.criu.cgyard.AwZKKB/hugetlb](89->79)
+(00.010501)   5414:   <--
+(00.010502)   5414:  <--
+(00.010504)   5414: <--
+(00.010572)   5414: Mount procfs in crtools-proc.P6lxbG
+(00.015786)   5414: Preparing info about shared resources
+(00.015844)   5414: Collecting 33/18 (flags 0)
+(00.015930)   5414: Collected [dev/pts/0] ID 0x1
+(00.015981)   5414: Collected [home/yuyuzhou/code/shadow/application/pi] ID 0x2
+(00.015999)   5414: Collected [usr/lib64/libc-2.20.so] ID 0x3
+(00.016029)   5414: Collected [usr/lib64/ld-2.20.so] ID 0x4
+(00.016032)   5414: Collected [home/yuyuzhou/code/shadow/application] ID 0x5
+(00.016046)   5414: Collected [.] ID 0x6
+(00.016052)   5414:  `- ... done
+(00.016054)   5414: Collecting 46/52 (flags 0)
+(00.016061)   5414:  `- ... done
+(00.016063)   5414: Collecting 35/20 (flags 2)
+(00.016073)   5414:  `- ... done
+(00.016076)   5414: Collecting 40/25 (flags 0)
+(00.016086)   5414:  `- ... done
+(00.016098)   5414: Collecting 42/26 (flags 0)
+(00.016110)   5414:  `- ... done
+(00.016113)   5414: Collecting 37/22 (flags 1)
+(00.016120)   5414:  `- ... done
+(00.016122)   5414: Collecting 38/23 (flags 2)
+(00.016126)   5414:  `- ... done
+(00.016127)   5414: Collecting 39/24 (flags 2)
+(00.016133)   5414:  `- ... done
+(00.016134)   5414: Collecting 47/28 (flags 0)
+(00.016139)   5414:  `- ... done
+(00.016140)   5414: Collecting 73/30 (flags 2)
+(00.016148)   5414: Collecting 48/29 (flags 0)
+(00.016186)   5414:  `- ... done
+(00.016189)   5414: Collecting 49/31 (flags 2)
+(00.016252)   5414:  `- ... done
+(00.016266)   5414: Collecting 50/32 (flags 2)
+(00.016272)   5414:  `- ... done
+(00.016274)   5414: Collecting 71/33 (flags 2)
+(00.016277)   5414: Collecting 51/34 (flags 2)
+(00.016282)   5414:  `- ... done
+(00.016307)   5414: Collecting 72/35 (flags 2)
+(00.016312)   5414: Collecting 45/37 (flags 2)
+(00.016355)   5414:  `- ... done
+(00.016358)   5414: Collecting 44/36 (flags 2)
+(00.016365)   5414: tty: Collected tty ID 0x1
+(00.016367)   5414:  `- ... done
+(00.016369)   5414: Collecting 52/42 (flags 2)
+(00.016374)   5414:  `- ... done
+(00.016375)   5414: Collecting 34/19 (flags 0)
+(00.016379)   5414:  `- ... done
+(00.016381)   5414: Collecting 54/45 (flags 2)
+(00.016385)   5414:  `- ... done
+(00.016387)   5414: Collecting 55/38 (flags 2)
+(00.016390)   5414:  `- ... done
+(00.016397)   5414: Trying to read socket queues image
+(00.016414)   5414: tty: Unpaired slave 0
+(00.016428)   5414: Found 18 VMAs in image
+(00.016431)   5414: vma 0x400000 0x401000
+(00.016433)   5414: vma 0x600000 0x601000
+(00.016434)   5414: vma 0x601000 0x602000
+(00.016436)   5414: vma 0x7fe9f8f1e000 0x7fe9f90d1000
+(00.016437)   5414: vma 0x7fe9f90d1000 0x7fe9f92d1000
+(00.016439)   5414: vma 0x7fe9f92d1000 0x7fe9f92d5000
+(00.016440)   5414: vma 0x7fe9f92d5000 0x7fe9f92d7000
+(00.016442)   5414: vma 0x7fe9f92d7000 0x7fe9f92db000
+(00.016443)   5414: vma 0x7fe9f92db000 0x7fe9f92fc000
+(00.016445)   5414: vma 0x7fe9f94ec000 0x7fe9f94ef000
+(00.016446)   5414: vma 0x7fe9f94fa000 0x7fe9f94fc000
+(00.016448)   5414: vma 0x7fe9f94fc000 0x7fe9f94fd000
+(00.016449)   5414: vma 0x7fe9f94fd000 0x7fe9f94fe000
+(00.016451)   5414: vma 0x7fe9f94fe000 0x7fe9f94ff000
+(00.016452)   5414: vma 0x7fff18bac000 0x7fff18bce000
+(00.016454)   5414: vma 0x7fff18bfc000 0x7fff18bfe000
+(00.016455)   5414: vma 0x7fff18bfe000 0x7fff18c00000
+(00.016457)   5414: vma 0xffffffffff600000 0xffffffffff601000
+(00.016461)   5414: Collect fdinfo pid=5414 fd=0 id=0x1
+(00.016463)   5414: Collect fdinfo pid=5414 fd=1 id=0x1
+(00.016465)   5414: Collect fdinfo pid=5414 fd=2 id=0x1
+(00.016473)   5414: Pipes:
+(00.016474)   5414: tty: Inherit terminal for id 1
+(00.016476)   5414: tty: head type pts id 0x1 index 0 (master 0 sid 4644 pgrp 5414 inherit 1)
+(00.016479)   5414: tty: Found orphan slave fake leader (0x1)
+(00.016480)   5414: Unix sockets:
+(00.016507)   5414: 	Saved shmems:
+(00.016510)   5414: File descs:
+(00.016511)   5414:  `- type 11 ID 0x1
+(00.016513)   5414:    `- FD 0 pid 5414
+(00.016514)   5414:    `- FD 1 pid 5414
+(00.016516)   5414:    `- FD 2 pid 5414
+(00.016517)   5414:  `- type 1 ID 0x1
+(00.016519)   5414:  `- type 1 ID 0x2
+(00.016520)   5414:  `- type 1 ID 0x3
+(00.016522)   5414:  `- type 1 ID 0x4
+(00.016523)   5414:  `- type 1 ID 0x5
+(00.016524)   5414:  `- type 1 ID 0x6
+(00.016560)   5414: Map 0x0000000000400000-0x0000000000401000 0x0000000000000000 vma
+(00.016570)   5414: 	premap 0x0000000000400000-0x0000000000401000 -> 00007fe0f245b000
+(00.016574)   5414: Map 0x0000000000600000-0x0000000000601000 0x0000000000000000 vma
+(00.016578)   5414: 	premap 0x0000000000600000-0x0000000000601000 -> 00007fe0f245c000
+(00.016581)   5414: Map 0x0000000000601000-0x0000000000602000 0x0000000000001000 vma
+(00.016584)   5414: 	premap 0x0000000000601000-0x0000000000602000 -> 00007fe0f245d000
+(00.016591)   5414: Map 0x00007fe9f8f1e000-0x00007fe9f90d1000 0x0000000000000000 vma
+(00.016597)   5414: 	premap 0x00007fe9f8f1e000-0x00007fe9f90d1000 -> 00007fe0f245e000
+(00.016600)   5414: Map 0x00007fe9f90d1000-0x00007fe9f92d1000 0x00000000001b3000 vma
+(00.016615)   5414: 	premap 0x00007fe9f90d1000-0x00007fe9f92d1000 -> 00007fe0f2611000
+(00.016619)   5414: Map 0x00007fe9f92d1000-0x00007fe9f92d5000 0x00000000001b3000 vma
+(00.016622)   5414: 	premap 0x00007fe9f92d1000-0x00007fe9f92d5000 -> 00007fe0f2811000
+(00.016624)   5414: Map 0x00007fe9f92d5000-0x00007fe9f92d7000 0x00000000001b7000 vma
+(00.016628)   5414: 	premap 0x00007fe9f92d5000-0x00007fe9f92d7000 -> 00007fe0f2815000
+(00.016630)   5414: Map 0x00007fe9f92d7000-0x00007fe9f92db000 0x0000000000000000 vma
+(00.016633)   5414: 	premap 0x00007fe9f92d7000-0x00007fe9f92db000 -> 00007fe0f2817000
+(00.016639)   5414: Map 0x00007fe9f92db000-0x00007fe9f92fc000 0x0000000000000000 vma
+(00.016643)   5414: 	premap 0x00007fe9f92db000-0x00007fe9f92fc000 -> 00007fe0f281b000
+(00.016644)   5414: Map 0x00007fe9f94ec000-0x00007fe9f94ef000 0x0000000000000000 vma
+(00.016647)   5414: 	premap 0x00007fe9f94ec000-0x00007fe9f94ef000 -> 00007fe0f283c000
+(00.016648)   5414: Map 0x00007fe9f94fa000-0x00007fe9f94fc000 0x0000000000000000 vma
+(00.016651)   5414: 	premap 0x00007fe9f94fa000-0x00007fe9f94fc000 -> 00007fe0f283f000
+(00.016654)   5414: Map 0x00007fe9f94fc000-0x00007fe9f94fd000 0x0000000000021000 vma
+(00.016658)   5414: 	premap 0x00007fe9f94fc000-0x00007fe9f94fd000 -> 00007fe0f2841000
+(00.016660)   5414: Map 0x00007fe9f94fd000-0x00007fe9f94fe000 0x0000000000022000 vma
+(00.016665)   5414: 	premap 0x00007fe9f94fd000-0x00007fe9f94fe000 -> 00007fe0f2842000
+(00.016667)   5414: Map 0x00007fe9f94fe000-0x00007fe9f94ff000 0x0000000000000000 vma
+(00.016670)   5414: 	premap 0x00007fe9f94fe000-0x00007fe9f94ff000 -> 00007fe0f2843000
+(00.016671)   5414: Map 0x00007fff18bab000-0x00007fff18bce000 0x0000000000000000 vma
+(00.016674)   5414: 	premap 0x00007fff18bab000-0x00007fff18bce000 -> 00007fe0f2844000
+(00.016676)   5414: Map 0x00007fff18bfc000-0x00007fff18bfe000 0x0000000000000000 vma
+(00.016678)   5414: 	premap 0x00007fff18bfc000-0x00007fff18bfe000 -> 00007fe0f2867000
+(00.016680)   5414: Map 0x00007fff18bfe000-0x00007fff18c00000 0x0000000000000000 vma
+(00.016682)   5414: 	premap 0x00007fff18bfe000-0x00007fff18c00000 -> 00007fe0f2869000
+(00.016696)   5414: Opened page read 1 (parent 0)
+(00.016699)   5414: 	pr1 Read page 400000 from self 400000/0
+(00.016710)   5414: 	pr1 Read page 600000 from self 600000/1000
+(00.016715)   5414: 	pr1 Read page 601000 from self 601000/2000
+(00.016732)   5414: 	pr1 Read page 7fe9f92d1000 from self 7fe9f92d1000/3000
+(00.016739)   5414: 	pr1 Read page 7fe9f92d2000 from self 7fe9f92d2000/4000
+(00.016743)   5414: 	pr1 Read page 7fe9f92d3000 from self 7fe9f92d3000/5000
+(00.016748)   5414: 	pr1 Read page 7fe9f92d4000 from self 7fe9f92d4000/6000
+(00.016753)   5414: 	pr1 Read page 7fe9f92d5000 from self 7fe9f92d5000/7000
+(00.016757)   5414: 	pr1 Read page 7fe9f92d6000 from self 7fe9f92d6000/8000
+(00.016764)   5414: 	pr1 Read page 7fe9f92d7000 from self 7fe9f92d7000/9000
+(00.016768)   5414: 	pr1 Read page 7fe9f92d8000 from self 7fe9f92d8000/a000
+(00.016772)   5414: 	pr1 Read page 7fe9f92da000 from self 7fe9f92da000/b000
+(00.016778)   5414: 	pr1 Read page 7fe9f94ec000 from self 7fe9f94ec000/c000
+(00.016782)   5414: 	pr1 Read page 7fe9f94ed000 from self 7fe9f94ed000/d000
+(00.016786)   5414: 	pr1 Read page 7fe9f94ee000 from self 7fe9f94ee000/e000
+(00.016790)   5414: 	pr1 Read page 7fe9f94fa000 from self 7fe9f94fa000/f000
+(00.016794)   5414: 	pr1 Read page 7fe9f94fb000 from self 7fe9f94fb000/10000
+(00.016798)   5414: 	pr1 Read page 7fe9f94fc000 from self 7fe9f94fc000/11000
+(00.016803)   5414: 	pr1 Read page 7fe9f94fd000 from self 7fe9f94fd000/12000
+(00.016808)   5414: 	pr1 Read page 7fe9f94fe000 from self 7fe9f94fe000/13000
+(00.016813)   5414: 	pr1 Read page 7fff18bcb000 from self 7fff18bcb000/14000
+(00.016816)   5414: 	pr1 Read page 7fff18bcc000 from self 7fff18bcc000/15000
+(00.016820)   5414: 	pr1 Read page 7fff18bcd000 from self 7fff18bcd000/16000
+(00.016824)   5414: 	pr1 Read page 7fff18bfe000 from self 7fff18bfe000/17000
+(00.016828)   5414: 	pr1 Read page 7fff18bff000 from self 7fff18bff000/18000
+(00.016834)   5414: nr_restored_pages: 25
+(00.016839)   5414: nr_shared_pages:   0
+(00.016841)   5414: nr_droped_pages:   0
+(00.016898)   5414: cg: Move into 2
+(00.016907)   5414: cg:   `-> blkio///tasks
+(00.016925)   5414: cg:   `-> cpu,cpuacct///tasks
+(00.016932)   5414: cg:   `-> cpuset///tasks
+(00.016938)   5414: cg:   `-> devices///tasks
+(00.016944)   5414: cg:   `-> freezer///tasks
+(00.016950)   5414: cg:   `-> hugetlb///tasks
+(00.016955)   5414: cg:   `-> memory///tasks
+(00.016961)   5414: cg:   `-> systemd//user.slice/user-1000.slice/session-23.scope/tasks
+(00.016971)   5414: cg:   `-> net_cls,net_prio///tasks
+(00.016977)   5414: cg:   `-> perf_event///tasks
+(00.016982)   5414: Restore sigacts for 5414
+(00.017003)   5414: Restored 61/61 sigacts
+(00.017005)   5414: Restoring children in alien sessions:
+(00.017012)   5414: Restoring children in our session:
+(00.017020)   5414: Restoring 5414 to 5460 pgid
+(00.017033)   5414: Restoring resources
+(00.017035)   5414: Opening fdinfo-s
+(00.017037)   5414: 	Restoring fd 0 (state -> prepare)
+(00.017039)   5414: 	Restoring fd 1 (state -> prepare)
+(00.017041)   5414: 	Restoring fd 2 (state -> prepare)
+(00.017043)   5414: 	Restoring fd 0 (state -> create)
+(00.017044)   5414: tty: open type pts id 0x1 index 0 (master 0 sid 4644 pgrp 5414 inherit 1)
+(00.017049)   5414: tty: Migrated slave peer 1 -> to fd 0
+(00.017060)   5414: tty: Restore inherited group 5460
+(00.017140)   5414: 		Create fd for 0
+(00.017143)   5414: 			Going to dup 0 into 1
+(00.017146)   5414: 			Going to dup 0 into 2
+(00.017149)   5414: 	Restoring fd 1 (state -> create)
+(00.017151)   5414: 	Restoring fd 2 (state -> create)
+(00.017152)   5414: Skipping receive fd stage
+(00.017154)   5414: 	Restoring fd 0 (state -> post_create)
+(00.017156)   5414: 	Restoring fd 1 (state -> post_create)
+(00.017157)   5414: 	Restoring fd 2 (state -> post_create)
+(00.017160)   5414: Opening 0x0000000000400000-0x0000000000401000 0x0000000000000000 (41) vma
+(00.017162)   5414: Opening 0x0000000000600000-0x0000000000601000 0x0000000000000000 (41) vma
+(00.017163)   5414: Opening 0x0000000000601000-0x0000000000602000 0x0000000000001000 (41) vma
+(00.017165)   5414: Opening 0x00007fe9f8f1e000-0x00007fe9f90d1000 0x0000000000000000 (41) vma
+(00.017167)   5414: Opening 0x00007fe9f90d1000-0x00007fe9f92d1000 0x00000000001b3000 (41) vma
+(00.017169)   5414: Opening 0x00007fe9f92d1000-0x00007fe9f92d5000 0x00000000001b3000 (41) vma
+(00.017170)   5414: Opening 0x00007fe9f92d5000-0x00007fe9f92d7000 0x00000000001b7000 (41) vma
+(00.017172)   5414: Opening 0x00007fe9f92d7000-0x00007fe9f92db000 0x0000000000000000 (201) vma
+(00.017173)   5414: Opening 0x00007fe9f92db000-0x00007fe9f92fc000 0x0000000000000000 (41) vma
+(00.017175)   5414: Opening 0x00007fe9f94ec000-0x00007fe9f94ef000 0x0000000000000000 (201) vma
+(00.017177)   5414: Opening 0x00007fe9f94fa000-0x00007fe9f94fc000 0x0000000000000000 (201) vma
+(00.017178)   5414: Opening 0x00007fe9f94fc000-0x00007fe9f94fd000 0x0000000000021000 (41) vma
+(00.017180)   5414: Opening 0x00007fe9f94fd000-0x00007fe9f94fe000 0x0000000000022000 (41) vma
+(00.017182)   5414: Opening 0x00007fe9f94fe000-0x00007fe9f94ff000 0x0000000000000000 (201) vma
+(00.017183)   5414: Opening 0x00007fff18bac000-0x00007fff18bce000 0x0000000000000000 (201) vma
+(00.017185)   5414: Opening 0x00007fff18bfc000-0x00007fff18bfe000 0x0000000000000000 (1201) vma
+(00.017187)   5414: Opening 0x00007fff18bfe000-0x00007fff18c00000 0x0000000000000000 (209) vma
+(00.017194)   5414: Restore via sigreturn
+(00.017196)   5414: 1 threads require 40K of memory
+(00.017238)   5414: Parsed 400000-4bc000 vma
+(00.017241)   5414: Parsed 6bb000-6bc000 vma
+(00.017242)   5414: Parsed 6bc000-6cc000 vma
+(00.017244)   5414: Parsed 6cc000-6d5000 vma
+(00.017246)   5414: Parsed 840000-861000 vma
+(00.017248)   5414: Parsed 7fe0f245b000-7fe0f245c000 vma
+(00.017249)   5414: Parsed 7fe0f245c000-7fe0f245d000 vma
+(00.017253)   5414: Parsed 7fe0f245d000-7fe0f245e000 vma
+(00.017255)   5414: Parsed 7fe0f245e000-7fe0f2611000 vma
+(00.017256)   5414: Parsed 7fe0f2611000-7fe0f2811000 vma
+(00.017258)   5414: Parsed 7fe0f2811000-7fe0f2815000 vma
+(00.017271)   5414: Parsed 7fe0f2815000-7fe0f2817000 vma
+(00.017273)   5414: Parsed 7fe0f2817000-7fe0f281b000 vma
+(00.017275)   5414: Parsed 7fe0f281b000-7fe0f283c000 vma
+(00.017277)   5414: Parsed 7fe0f283c000-7fe0f2841000 vma
+(00.017278)   5414: Parsed 7fe0f2841000-7fe0f2842000 vma
+(00.017280)   5414: Parsed 7fe0f2842000-7fe0f2843000 vma
+(00.017282)   5414: Parsed 7fe0f2843000-7fe0f2844000 vma
+(00.017283)   5414: Parsed 7fe0f2846000-7fe0f2867000 vma
+(00.017285)   5414: Parsed 7fe0f2867000-7fe0f2869000 vma
+(00.017287)   5414: Parsed 7fe0f2869000-7fe0f286b000 vma
+(00.017288)   5414: Parsed 7fe0f286b000-7fe0f2a1e000 vma
+(00.017290)   5414: Parsed 7fe0f2a1e000-7fe0f2c1e000 vma
+(00.017292)   5414: Parsed 7fe0f2c1e000-7fe0f2c22000 vma
+(00.017301)   5414: Parsed 7fe0f2c22000-7fe0f2c24000 vma
+(00.017303)   5414: Parsed 7fe0f2c24000-7fe0f2c28000 vma
+(00.017304)   5414: Parsed 7fe0f2c28000-7fe0f2c2b000 vma
+(00.017306)   5414: Parsed 7fe0f2c2b000-7fe0f2e2a000 vma
+(00.017309)   5414: Parsed 7fe0f2e2a000-7fe0f2e2b000 vma
+(00.017311)   5414: Parsed 7fe0f2e2b000-7fe0f2e2c000 vma
+(00.017313)   5414: Parsed 7fe0f2e2c000-7fe0f2e34000 vma
+(00.017315)   5414: Parsed 7fe0f2e34000-7fe0f3033000 vma
+(00.017316)   5414: Parsed 7fe0f3033000-7fe0f3034000 vma
+(00.017318)   5414: Parsed 7fe0f3034000-7fe0f3035000 vma
+(00.017320)   5414: Parsed 7fe0f3035000-7fe0f304c000 vma
+(00.017328)   5414: Parsed 7fe0f304c000-7fe0f324b000 vma
+(00.017330)   5414: Parsed 7fe0f324b000-7fe0f324c000 vma
+(00.017331)   5414: Parsed 7fe0f324c000-7fe0f324d000 vma
+(00.017333)   5414: Parsed 7fe0f324d000-7fe0f3251000 vma
+(00.017335)   5414: Parsed 7fe0f3251000-7fe0f3258000 vma
+(00.017336)   5414: Parsed 7fe0f3258000-7fe0f3457000 vma
+(00.017338)   5414: Parsed 7fe0f3457000-7fe0f3458000 vma
+(00.017340)   5414: Parsed 7fe0f3458000-7fe0f3459000 vma
+(00.017341)   5414: Parsed 7fe0f3459000-7fe0f347a000 vma
+(00.017343)   5414: Parsed 7fe0f3658000-7fe0f3659000 vma
+(00.017344)   5414: Parsed 7fe0f3659000-7fe0f366d000 vma
+(00.017346)   5414: Parsed 7fe0f366d000-7fe0f366f000 vma
+(00.017355)   5414: Parsed 7fe0f366f000-7fe0f3675000 vma
+(00.017357)   5414: Parsed 7fe0f3675000-7fe0f3677000 vma
+(00.017360)   5414: Parsed 7fe0f3677000-7fe0f3679000 vma
+(00.017362)   5414: Parsed 7fe0f3679000-7fe0f367a000 vma
+(00.017364)   5414: Parsed 7fe0f367a000-7fe0f367b000 vma
+(00.017365)   5414: Parsed 7fe0f367b000-7fe0f367c000 vma
+(00.017367)   5414: Parsed 7fe0f367c000-7fe0f367d000 vma
+(00.017369)   5414: Parsed 7fff24764000-7fff247a6000 vma
+(00.017370)   5414: Parsed 7fff247fc000-7fff247fe000 vma
+(00.017372)   5414: Parsed 7fff247fe000-7fff24800000 vma
+(00.017374)   5414: Parsed ffffffffff600000-ffffffffff601000 vma
+(00.017385)   5414: Found bootstrap VMA hint at: 0x10000 (needs ~96K)
+(00.017416)   5414: 	call mremap(0x7fe0f366d000, 8192, 8192, MAYMOVE | FIXED, 0x20000)
+(00.017423)   5414: 	call mremap(0x7fe0f3675000, 8192, 8192, MAYMOVE | FIXED, 0x22000)
+(00.017433)   5414: xsave runtime structure
+(00.017436)   5414: -----------------------
+(00.017437)   5414: cwd:37f swd:0 twd:0 fop:0 mxcsr:1fa0 mxcsr_mask:ffff
+(00.017439)   5414: magic1:46505853 extended_size:344 xstate_bv:7 xstate_size:340
+(00.017441)   5414: xstate_bv: 7
+(00.017442)   5414: -----------------------
+(00.017443)   5414: Thread    0 stack  0x165c0 rt_sigframe  0x1e5c0
+(00.017492)   5414: Going to chroot into ./self/fd/6
+(00.017512)   5414: Restoring umask to 2
+(00.017520)   5414: task_args: 0x16000
+task_args->pid: 5414
+task_args->nr_threads: 1
+task_args->clone_restore_fn: 0x10aa0
+task_args->thread_args: 0x16540
+pie: Switched to the restorer 5414
+pie: vdso: Remap rt-vvar 0x7fff247fc000 -> 0x24000
+pie: vdso: Remap rt-vdso 0x7fff247fe000 -> 0x26000
+pie: Remap 0x7fe0f245b000->0x400000 len 0x1000
+pie: Remap 0x7fe0f245c000->0x600000 len 0x1000
+pie: Remap 0x7fe0f245d000->0x601000 len 0x1000
+pie: Remap 0x7fe0f2869000->0x7fff18bfe000 len 0x2000
+pie: Remap 0x7fe0f2867000->0x7fff18bfc000 len 0x2000
+pie: Remap 0x7fe0f2845000->0x7fff18bac000 len 0x22000
+pie: Remap 0x7fe0f2843000->0x7fe9f94fe000 len 0x1000
+pie: Remap 0x7fe0f2842000->0x7fe9f94fd000 len 0x1000
+pie: Remap 0x7fe0f2841000->0x7fe9f94fc000 len 0x1000
+pie: Remap 0x7fe0f283f000->0x7fe9f94fa000 len 0x2000
+pie: Remap 0x7fe0f283c000->0x7fe9f94ec000 len 0x3000
+pie: Remap 0x7fe0f281b000->0x7fe9f92db000 len 0x21000
+pie: Remap 0x7fe0f2817000->0x7fe9f92d7000 len 0x4000
+pie: Remap 0x7fe0f2815000->0x7fe9f92d5000 len 0x2000
+pie: Remap 0x7fe0f2811000->0x7fe9f92d1000 len 0x4000
+pie: Remap 0x7fe0f2611000->0x7fe9f90d1000 len 0x200000
+pie: Remap 0x7fe0f245e000->0x7fe9f8f1e000 len 0x1b3000
+pie: vdso: Parsing at 0x7fff18bfe000 0x7fff18c00000
+pie: vdso: PT_LOAD p_vaddr: 0x0
+pie: vdso: DT_HASH: 
+pie: vdso: DT_STRTAB: 
+pie: vdso: DT_SYMTAB: 
+pie: vdso: DT_STRSZ: 
+pie: vdso: DT_SYMENT: 
+pie: vdso: nbucket  nchain  bucket  chain 
+pie: vdso: image [vdso] 0x7fff18bfe000-0x7fff18c00000 [vvar] 0x7fff18b>
+pie: fc000-0x7fff18bfe000
+pie: vdso: Runtime vdso/vvar matches dumpee, remap inplace
+pie: vdso: Remap dumpee 0x24000 -> 0x7fff18bfc000
+pie: vdso: Remap dumpee 0x26000 -> 0x7fff18bfe000
+pie: Restoring EXE link
+pie: Restoring scheduler params 0.0.0
+pie: 5414: Restored
+(00.024256) Running post-restore scripts
+(00.024266) Unlock network
+(00.024494) Restore finished successfully. Resuming tasks.
+(00.024532) 5414 was trapped
+(00.024536) `- Expecting exit
+(00.024543) 5414 was trapped
+(00.024547) 5414 is going to execute the syscall f
+(00.024554) 5414 was stopped
+(00.024569) 5414 was trapped
+(00.024572) 5414 is going to execute the syscall b
+(00.024588) 5414 was stopped
+(00.024595) Writing stats
