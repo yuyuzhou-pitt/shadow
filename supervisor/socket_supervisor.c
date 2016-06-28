@@ -69,8 +69,10 @@ void *supervisor_thread(void *arg){
     Packet *packet_recv; // MUST use pointer to fit different Packet
     packet_recv = (Packet *)calloc(1, sizeof(Packet));
 
+    logging(LOGFILE, "1");
     //printf("==supervisor 1==");
     Recv(sockfd, packet_recv, sizeof(Packet), MSG_NOSIGNAL);
+    logging(LOGFILE, "2");
 
     //printf("==supervisor 2==");
     /* Register service */
@@ -145,6 +147,7 @@ void *sock_supervisor(void *arg){
     snprintf(logmsg, sizeof(logmsg), "sockmanager: Server %s (%s) is setup on port: %d\n", addrstr, hostname, port);
     logging(LOGFILE, logmsg);
     Listen(sockfd, MAX_QUE_CONN_NM);
+    logging(LOGFILE, "supervisor: 1\n");
    
     /* Thread attribute */
     pthread_attr_t attr;
@@ -170,16 +173,20 @@ void *sock_supervisor(void *arg){
 
     /* Set up the time out by getting the time of the day from the system */
     gettimeofday(&before, &tzp);
+    logging(LOGFILE, "supervisor: 2\n");
 
     int status;
     status=CONTINUE;
     while (status==CONTINUE){
+        logging(LOGFILE, "supervisor: 2.1\n");
         if (iThread == NTHREADS){
             iThread = 0;
         }
 
         memcpy(&ready_set, &test_set, sizeof(test_set));
+        logging(LOGFILE, "supervisor: 2.2\n");
         nready = select(maxfd+1, &ready_set, NULL, NULL, tvptr);
+        logging(LOGFILE, "supervisor: 2.5\n");
 
         switch(nready){
             case -1:
@@ -209,7 +216,9 @@ void *sock_supervisor(void *arg){
                     //snprintf(logmsg, sizeof(logmsg), "sockmanager(0x%x): Listening socket is readable\n", pthread_self());
                     //logging(LOGFILE, logmsg);
                     /* wait for connection */
+                    logging(LOGFILE, "supervisor: 3\n");
                     client_fd = Accept(sockfd, client_sockaddr, sin_size);
+                    logging(LOGFILE, "supervisor: 4\n");
                     for(k=0;k<FD_SETSIZE;k++){
                         if(client[k] < 0){
                             client[k] = client_fd;
@@ -228,7 +237,7 @@ void *sock_supervisor(void *arg){
         usleep(100);
     } // end while (status==CONTINUE)
     close(sockfd);
-    unlinkPortFile(addrstr);
+    //unlinkPortFile(addrstr);
 
     return 0;
 }

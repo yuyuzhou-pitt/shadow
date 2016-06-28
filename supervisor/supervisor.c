@@ -59,7 +59,9 @@ int main(int argc, char *argv[]){
     int sockfd = 0;
     pthread_t sockmanagerid; 
     pthread_create(&sockmanagerid, NULL, &sock_supervisor, (void *)sockfd);
-    fprintf(stdout, "(supervisor): socket manager start up.\n");
+    fprintf(stdout, "(supervisor): Staring supervisor...\n");
+    while( fileExists( SUPERVISOR_FILE ) == -1 );
+    fprintf(stdout, "(supervisor): Supervisor started on port: %d\n", getPortNumber(SUPERVISOR_FILE));
 
     fprintf(stdout, "(supervisor): please track log file for detail: %s\n", LOGFILE);
     fprintf(stdout, "\n== WELCOME TO TERMINAL FOR SHADOW! ==\n");
@@ -100,7 +102,7 @@ int main(int argc, char *argv[]){
 
     }
 
-    unlinkUpperFile(REGISTER_MACHINE_FILE);
+    //unlinkUpperFile(SUPERVISOR_FILE);
     //pthread_join(sockmanagerid, NULL);
     return 0;
 }

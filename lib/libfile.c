@@ -96,6 +96,21 @@ int writeFileStr(char *str, char *file){
     return 0;
 }
 
+int fileExists(char *file){
+    char hostfile[17];
+    memset(hostfile, 0, sizeof(hostfile));
+    strcpy(hostfile, "../");
+    strcat(hostfile, file);
+
+    if( access( hostfile, F_OK ) != -1 ) {
+        //file exists
+        return 1;
+    }
+
+    //file NOT exists
+    return -1;
+}
+
 /*write file*/
 int writeFile(char *str, int size, char *file, char *writeMode){
     FILE *fp;
@@ -156,7 +171,7 @@ int printFile(char *filename){
 int unlinkFile(char *file){
 
     if(access(file, F_OK) < 0) {
-        char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "readfile: File not found: %s\n", file);
+        char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "unlink file: File not found: %s\n", file);
         logging(LOGFILE, logmsg);
         return -1;
     }
@@ -202,7 +217,7 @@ int unlinkUpperFile(char *file){
     strcat(hostfile, file);
 
     if(access(hostfile, F_OK) < 0) {
-        char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "readfile: File not found: %s\n", hostfile);
+        char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "unlink upper file: File not found: %s\n", hostfile);
         logging(LOGFILE, logmsg);
         return -1;
     }
@@ -382,7 +397,7 @@ int getPortNumber(char *ipfile){
     char portstr[6];
     char hostfile[17];
     memset(hostfile, 0, sizeof(hostfile));
-    strcpy(hostfile, "../.");
+    strcpy(hostfile, "../");
     strcat(hostfile, ipfile);
 
     if(readFile(portstr, 6, hostfile) < 0){

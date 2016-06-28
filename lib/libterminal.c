@@ -251,32 +251,3 @@ int helpClient(){
 
     return 0;
 }
-<<<<<<< HEAD
-=======
-
-/****************
-* 5. minigoogle *
-*****************/
-
-int helpMiniGoogle(){
-    fprintf(stderr, "\nUsage: ./minigoogle <subcommand> [options]\n");
-    fprintf(stderr, "The command line MiniGoogle interface.\n\n");
-    fprintf(stderr, "Subcommands:\n");
-    fprintf(stderr, "  help      show this message\n");
-    fprintf(stderr, "  request   <program-name> <version-number> <procedure>\n");
-    fprintf(stderr, "            request manager info for certain procedure provided by certain program of certain version\n");
-    fprintf(stderr, "  execute   <program-name> <version-number> <procedure> <input_file> <out_putfile>\n");
-    fprintf(stderr, "            request and call the remote procedure call\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
-    fprintf(stderr, "\n");
-    fprintf(stderr, "For example:\n");
-    fprintf(stderr, "1. To request Multipy in Scientific Library version 2:\n");
-    fprintf(stderr, "$ ./minigoogle request MapReduceLibrary 2 Search\n");
-    fprintf(stderr, "2. To execute Index in Map Reduce Library version 1:\n");
-    fprintf(stderr, "$ ./minigoogle execute MapReduceLibrary 1 Index ../data ../index\n");
-    fprintf(stderr, "3. To execute Search in Map Reduce Library version 1:\n");
-    fprintf(stderr, "$ ./minigoogle execute MapReduceLibrary 1 Search ../index ../output \"term1 term2\"\n\n");
-
-    return 0;
-}
->>>>>>> e42f66a532933a4ec902f6e2a56551884c03a0f1

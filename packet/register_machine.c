@@ -63,6 +63,7 @@ int writeRegisterMachine(Packet *packet_recv, char *file){
         size_t len = 0;
         ssize_t read;
 
+        int server_exists = 0;
         /*do not check dup if file do not exists*/
         if(file_exists == 1) {
             if ((table_fp = fopen(tempfile,"r")) < 0){
