@@ -5,7 +5,7 @@
 //#include "../supervisor/socket_supervisor.h"
 #include "../lib/libterminal.h"
 
-int registerServices(OptionsStruct *options);
+int registerServices(Machine *machine);
 void *sockclient(void *arg);
 
 #endif
