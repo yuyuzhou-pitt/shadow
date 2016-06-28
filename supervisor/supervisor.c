@@ -65,7 +65,7 @@ int main(int argc, char *argv[]){
     pthread_create(&sockmanagerid, NULL, &sock_supervisor, (void *)sockfd);
     fprintf(stdout, "(supervisor): Staring supervisor...\n");
     while( getPortNumber(addrstr) == -1 );
-    fprintf(stdout, "(supervisor): Supervisor started:  %s:%d\n", addrstr, getPortNumber(addrstr));
+    fprintf(stdout, "(supervisor): Supervisor started (ip port): %s %d.\n", addrstr, getPortNumber(addrstr));
 
     fprintf(stdout, "(supervisor): please track log file for detail: %s\n", LOGFILE);
     fprintf(stdout, "\n== WELCOME TO TERMINAL FOR SHADOW! ==\n");

@@ -197,7 +197,7 @@ int listPortMapper(){
         return -1;
     }
 
-    fprintf(stderr, "Server_IP     |Port |Program_name|Version|Procedure\n");
+    fprintf(stderr, "Server_IP:Port\n");
     while ((read = getline(&line, &len, fp)) != -1) {
         fprintf(stderr, "%s", line);
     }

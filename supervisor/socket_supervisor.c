@@ -147,7 +147,6 @@ void *sock_supervisor(void *arg){
     snprintf(logmsg, sizeof(logmsg), "sockmanager: Server %s (%s) is setup on port: %d\n", addrstr, hostname, port);
     logging(LOGFILE, logmsg);
     Listen(sockfd, MAX_QUE_CONN_NM);
-    logging(LOGFILE, "supervisor: 1\n");
    
     /* Thread attribute */
     pthread_attr_t attr;
@@ -173,20 +172,16 @@ void *sock_supervisor(void *arg){
 
     /* Set up the time out by getting the time of the day from the system */
     gettimeofday(&before, &tzp);
-    logging(LOGFILE, "supervisor: 2\n");
 
     int status;
     status=CONTINUE;
     while (status==CONTINUE){
-        logging(LOGFILE, "supervisor: 2.1\n");
         if (iThread == NTHREADS){
             iThread = 0;
         }
 
         memcpy(&ready_set, &test_set, sizeof(test_set));
-        logging(LOGFILE, "supervisor: 2.2\n");
         nready = select(maxfd+1, &ready_set, NULL, NULL, tvptr);
-        logging(LOGFILE, "supervisor: 2.5\n");
 
         switch(nready){
             case -1:
