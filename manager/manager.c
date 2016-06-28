@@ -57,6 +57,6 @@ int main(int argc, char *argv[]){
     pthread_create(&sockmanagerid, NULL, &sockmanager, (void *)sockfd);
     
     registerServices(&machine);
-    pthread_join(sockmanagerid, NULL);
+    //pthread_join(sockmanagerid, NULL);
     return 0;
 }
