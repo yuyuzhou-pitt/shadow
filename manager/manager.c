@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
 
     Machine machine;
     snprintf(machine.ip, sizeof(machine.ip), "%s", argv[1]);
-    machine.port = argv[2];
+    machine.port = atoi(argv[2]);
 
     /* Thread attribute */
     pthread_attr_t attr;
@@ -57,6 +57,6 @@ int main(int argc, char *argv[]){
     pthread_create(&sockmanagerid, NULL, &sockmanager, (void *)sockfd);
     
     registerServices(&machine);
-    //pthread_join(sockmanagerid, NULL);
+    pthread_join(sockmanagerid, NULL);
     return 0;
 }

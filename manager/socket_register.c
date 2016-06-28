@@ -71,8 +71,7 @@ void *sockregister(void *arg){
 
     getaddr(hostname, addrstr); //get hostname and ip, getaddrinfo.h
    
-    char logmsg[128];
-    snprintf(logmsg, sizeof(logmsg), "manager_client(0x%x): starting up...\n", pthread_self());
+    char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "manager_client(0x%x): starting up, connecting to supervisor (%s)...\n", pthread_self(), supervisor->ip);
     logging(LOGFILE, logmsg);
 
     /* There are 3 types of Packets to be exchanged via manager for registering:
@@ -86,7 +85,7 @@ void *sockregister(void *arg){
         exit(-1);
     };
 
-    /* connect to remote manager */
+    /* connect to remote supervisor */
     /*create socket*/
     clientfd = Socket(AF_INET, SOCK_STREAM, 0);
 
@@ -96,9 +95,11 @@ void *sockregister(void *arg){
     sockaddr.sin_addr = *((struct in_addr *)host->h_addr);
     bzero(&(sockaddr.sin_zero), 8);
 
-    /*connect to manager*/
+    /*connect to supervisor */
     Connect(clientfd,sockaddr,sizeof(sockaddr));
 
+
+    logging(LOGFILE, "manager: 1\n");
 
     pthread_mutex_lock(&register_mutex);
 
@@ -108,11 +109,14 @@ void *sockregister(void *arg){
      * - sender_ip (addrstr)
      * - supervisor_ip (remote_ipstr)*/
     packet_req = genRegister(addrstr, supervisor->ip); // msg to be sent out
+    logging(LOGFILE, "manager: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
+    logging(LOGFILE, "manager: 3\n");
     packet_reply = (Packet *)malloc(sizeof(Packet));
     /* Receive neighbors_reply from remote side */
     Recv(clientfd, packet_reply, sizeof(Packet), MSG_NOSIGNAL);
+    logging(LOGFILE, "manager: 4\n");
 
     pthread_mutex_unlock(&register_mutex);
 
