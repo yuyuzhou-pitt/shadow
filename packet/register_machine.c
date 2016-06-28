@@ -78,7 +78,7 @@ int writeRegisterMachine(Packet *packet_recv, char *file){
 
                 /*to find the register info which match the request program_name, version_number, and procedure_name*/
                 if(strcmp(manager_ip, packet_recv->Data.app_process.main.ip) == 0 &&
-                   strcmp(manager_port, packet_recv->Data.app_process.main.port) == 0){
+                   atoi(manager_port) == packet_recv->Data.app_process.main.port ){
                     server_exists = 1;
                     break; //jump out the while loop
                 }

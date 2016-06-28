@@ -20,8 +20,14 @@ clean:
 ifneq ($(wildcard supervisor),)
 	rm supervisor;
 endif
-ifneq ($(wildcard SRPC.log),)
-	rm SRPC.log;
+ifneq ($(wildcard shadow.log),)
+	rm shadow.log;
+endif
+ifneq ($(wildcard ../.register_machine),)
+	rm ../.register_machine;
+endif
+ifneq ($(wildcard ../.1*),) 
+	rm ../.1*; 
 endif
 ifneq ($(wildcard ../.supervisor*),) 
 	rm ../.supervisor*; 
