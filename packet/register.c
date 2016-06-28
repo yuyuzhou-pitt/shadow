@@ -23,7 +23,6 @@
 */
 
 Packet *genRegister(char *manager_ip, char *supervisor_ip){
-    //int getPort(char *portstr, int size, char *ipfile)
     AppProcess app_process; // MUST NOT be pointer as to be send remote
     snprintf(app_process.main.ip, sizeof(app_process.main.ip), "%s", manager_ip);
     app_process.main.port = getPortNumber(manager_ip);

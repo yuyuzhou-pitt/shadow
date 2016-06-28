@@ -49,6 +49,10 @@ int main(int argc, char *argv[]){
 
     /*initial the load balance link for client request service use*/
 
+    char hostname[1024]; // local hostname and domain
+    char addrstr[100]; // local ip address (eth0)
+    getaddr(hostname, addrstr);
+
     /* Thread attribute */
     pthread_attr_t attr;
     pthread_attr_init(&attr); // Creating thread attributes
@@ -60,8 +64,8 @@ int main(int argc, char *argv[]){
     pthread_t sockmanagerid; 
     pthread_create(&sockmanagerid, NULL, &sock_supervisor, (void *)sockfd);
     fprintf(stdout, "(supervisor): Staring supervisor...\n");
-    while( fileExists( SUPERVISOR_FILE ) == -1 );
-    fprintf(stdout, "(supervisor): Supervisor started on port: %d\n", getPortNumber(SUPERVISOR_FILE));
+    while( getPortNumber(addrstr) == -1 );
+    fprintf(stdout, "(supervisor): Supervisor started:  %s:%d\n", addrstr, getPortNumber(addrstr));
 
     fprintf(stdout, "(supervisor): please track log file for detail: %s\n", LOGFILE);
     fprintf(stdout, "\n== WELCOME TO TERMINAL FOR SHADOW! ==\n");

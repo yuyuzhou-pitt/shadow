@@ -53,7 +53,7 @@ int writeRegisterMachine(Packet *packet_recv, char *file){
     //for(i=0;i<packet_recv->Data.procedure_number;i++){
         /*printable str*/
         memset(registerString, 0, sizeof(registerString));
-        snprintf(registerString, sizeof(registerString), "%s:%s\n", \
+        snprintf(registerString, sizeof(registerString), "%s:%d\n", \
              packet_recv->sender_ip, packet_recv->Data.app_process.main.port);
 
         /*check duplication before writing*/

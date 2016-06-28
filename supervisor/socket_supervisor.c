@@ -142,7 +142,7 @@ void *sock_supervisor(void *arg){
 
     getaddr(hostname, addrstr); //get hostname and ip, getaddrinfo.h
     port = Getsockname(sockfd, manager_sockaddr, sin_size);  /* Get the port number assigned*/
-    writeSupervisor(port, addrstr, SUPERVISOR_FILE);
+    writePort(port, addrstr);
     
     snprintf(logmsg, sizeof(logmsg), "sockmanager: Server %s (%s) is setup on port: %d\n", addrstr, hostname, port);
     logging(LOGFILE, logmsg);

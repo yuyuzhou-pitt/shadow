@@ -295,7 +295,7 @@ int unlinkPortFile(char *file){
 }
 
 /*write ip:port to register machine file*/
-int writeSupervisor(int port, char *hostip, char *file){
+int writePortIp(int port, char *hostip, char *file){
 
     char portstr[6];
     sprintf(portstr, "%d", port); // int to str
@@ -324,7 +324,7 @@ int writeSupervisor(int port, char *hostip, char *file){
 
 
 /*get port from host file*/
-int getSupervisor(char portstr[6], char ipstr[32], char *file){
+int getPortIp(char portstr[6], char ipstr[32], char *file){
     char templine[32];
     char pm_ipstr[32];
     char pm_portstr[6]; // to store the port
@@ -397,7 +397,7 @@ int getPortNumber(char *ipfile){
     char portstr[6];
     char hostfile[17];
     memset(hostfile, 0, sizeof(hostfile));
-    strcpy(hostfile, "../");
+    strcpy(hostfile, "../.");
     strcat(hostfile, ipfile);
 
     if(readFile(portstr, 6, hostfile) < 0){
