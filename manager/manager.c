@@ -55,8 +55,9 @@ int main(int argc, char *argv[]){
     int sockfd;
     pthread_t sockmanagerid;
     pthread_create(&sockmanagerid, NULL, &sockmanager, (void *)sockfd);
+    fprintf(stdout, "(manager): Ready to receive jobs, please track log file for detail: %s\n", LOGFILE);
     
     registerServices(&machine);
-    //pthread_join(sockmanagerid, NULL);
+    pthread_join(sockmanagerid, NULL);
     return 0;
 }
