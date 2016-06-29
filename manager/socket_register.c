@@ -98,9 +98,6 @@ void *sockregister(void *arg){
     /*connect to supervisor */
     Connect(clientfd,sockaddr,sizeof(sockaddr));
 
-
-    logging(LOGFILE, "manager: 1\n");
-
     pthread_mutex_lock(&register_mutex);
 
     Packet *packet_req, *packet_reply;
@@ -109,14 +106,11 @@ void *sockregister(void *arg){
      * - sender_ip (addrstr)
      * - supervisor_ip (remote_ipstr)*/
     packet_req = genRegister(addrstr, supervisor->ip); // msg to be sent out
-    logging(LOGFILE, "manager: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
-    logging(LOGFILE, "manager: 3\n");
     packet_reply = (Packet *)malloc(sizeof(Packet));
     /* Receive neighbors_reply from remote side */
     Recv(clientfd, packet_reply, sizeof(Packet), MSG_NOSIGNAL);
-    logging(LOGFILE, "manager: 4\n");
 
     pthread_mutex_unlock(&register_mutex);
 
