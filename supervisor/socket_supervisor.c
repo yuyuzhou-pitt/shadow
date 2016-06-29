@@ -47,13 +47,18 @@ void *supervisor_thread(void *arg){
 
     char logmsg[128]; 
 
-    /* There are 5 types of Packets to be exchanged via supervisor:
-     * 1) Register service (from manager to supervisor)         (000)
-     * 2) Register acknowledge (from supervisor to manager)     (001)
-     * 3) Hello Packets (from manager to supervisor)            (111)
-     * 4) Request manager location (from client to supervisor)   (010)
-     * 5) Response manager location (from supervisor to client)  (011)
-     * */
+/*  Register_Machine:0000
+ *  Register_Machine_Ack:0001
+ *  Machine_Heartbeat:0010
+ *  App_Heartbeat:0011
+ *  Launch_App:0100
+ *  Launch_App_Ack:0101
+ *  Dump_App:0110
+ *  Dump_App_Ack:0111
+ *  Leap_App:1000
+ *  Leap_App_Ack:1001
+ *  Unknown:1010
+ */
 
     struct timeval *tmpcost, cost, timer; // use high quality timer to calculate the ping cost
     struct timezone tzp;
@@ -76,7 +81,7 @@ void *supervisor_thread(void *arg){
 
     //printf("==supervisor 2==");
     /* Register service */
-    if(strcmp(packet_recv->packet_type, "000") == 0){
+    if(strcmp(packet_recv->packet_type, "0000") == 0){
         int dup_register = 0;
         //snprintf(logmsg, sizeof(logmsg), "managerthread(0x%x): packet_recv type: %s\n", pthread_self(), packet_recv->packet_type);
         //logging(LOGFILE, logmsg);
