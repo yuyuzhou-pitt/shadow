@@ -24,10 +24,10 @@
 
 Packet *genRegister(char *manager_ip, char *supervisor_ip){
     AppProcess app_process; // MUST NOT be pointer as to be send remote
-    snprintf(app_process.main.ip, sizeof(app_process.main.ip), "%s", manager_ip);
-    app_process.main.port = getPortNumber(manager_ip);
-    app_process.main.status = 0; // default is 0 (running)
-    app_process.main.latest_heartbeat = time(0); // system time
+    snprintf(app_process.machine[0].ip, sizeof(app_process.machine[0].ip), "%s", manager_ip);
+    app_process.machine[0].port = getPortNumber(manager_ip);
+    app_process.machine[0].status = 0; // default is 0 (running)
+    app_process.machine[0].latest_heartbeat = time(0); // system time
 
     /*wrap into packet*/
     Packet *register_packet;
@@ -35,7 +35,7 @@ Packet *genRegister(char *manager_ip, char *supervisor_ip){
 
     snprintf(register_packet->sender_ip, sizeof(register_packet->sender_ip), "%s", manager_ip);
     snprintf(register_packet->receiver_ip, sizeof(register_packet->receiver_ip), "%s", supervisor_ip);
-    snprintf(register_packet->packet_type, sizeof(register_packet->packet_type), "%s", "000"); // Register Packets (000)
+    snprintf(register_packet->packet_type, sizeof(register_packet->packet_type), "%s", "0000"); // Register Packets (000)
 
     register_packet->Data.app_process = (AppProcess) app_process; // Data
 
