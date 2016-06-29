@@ -23,6 +23,6 @@ endif
 ifneq ($(wildcard manager),)
 	rm manager;
 endif
-ifneq ($(wildcard SRPC.log),)
-	rm SRPC.log;
+ifneq ($(wildcard shadow.log),)
+	rm shadow.log;
 endif
