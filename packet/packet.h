@@ -11,10 +11,24 @@
 #define MACHINE_HEARTBEAT_INTERVAL 20
 #define APP_HEARTBEAT_INTERVAL 10
 
+/*  Register_Machine:0000
+ *  Register_Machine_Ack:0001
+ *  Machine_Heartbeat:0010
+ *  App_Heartbeat:0011
+ *  Launch_App:0100
+ *  Launch_App_Ack:0101
+ *  Dump_App:0110
+ *  Dump_App_Ack:0111
+ *  Leap_App:1000
+ *  Leap_App_Ack:1001
+ *  Unknown:1010
+ */
+
 /* AppFile identification, path to exectue app*/
 typedef struct AppPath{
     char name[80];
     char location[255];
+    char options[255];
 }AppPath;
 
 
@@ -28,9 +42,9 @@ typedef struct Machine{
 
 /* global application process table*/
 typedef struct AppProcess{
-    AppPath app_path;
-    Machine main;
-    Machine shadow;
+    int pid;
+    AppPath app;
+    Machine machine[2]; // main, shadow
 }AppProcess;
 
 

@@ -1,4 +1,4 @@
-/* SRPC Server, it plays two roles:
+/* shadow Server, it plays two roles:
  *  1. as socket manager to provide services to client
  *  2. as socket client to register services into register machine table
  *

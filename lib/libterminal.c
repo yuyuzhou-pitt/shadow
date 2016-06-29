@@ -23,6 +23,8 @@
 *************/
 
 // parse command into options, 3 the most
+// # launch main_ip shawdow_ip app parameters
+// # leap main_ip shadow_ip app parameters
 OptionsStruct *command2struct(char *input){
     size_t count = 0;
     char *tmp = input;
@@ -39,23 +41,36 @@ OptionsStruct *command2struct(char *input){
     count += last_delim < (input + strlen(input) - 1);
 
     /*split the input string*/
-    char *command, *argument1, *argument2, *argument3, *argument4, *argument5;
-    char *temp1, *temp2, *temp3, *temp4; 
+    char *command, *argument1, *argument2, *argument3, *argument4;
+    char *temp1, *temp2, *temp3; 
     OptionsStruct *parse_options;
     parse_options = (OptionsStruct *)calloc(1, sizeof(OptionsStruct));
     command = strtok_r(input, " ", &temp1); //option2 is for temp use
     argument1 = strtok_r(temp1, " ", &temp2);
     argument2 = strtok_r(temp2, " ", &temp3);
-    argument3 = strtok_r(temp3, " ", &temp4);
-    argument4 = strtok_r(temp4, " ", &argument5);
+    argument3 = strtok_r(temp3, " ", &argument4);
     parse_options->count = count;
     snprintf(parse_options->command, sizeof(parse_options->command), "%s", command);
     snprintf(parse_options->option1, sizeof(parse_options->option1), "%s", argument1);
     snprintf(parse_options->option2, sizeof(parse_options->option2), "%s", argument2);
     snprintf(parse_options->option3, sizeof(parse_options->option3), "%s", argument3);
     snprintf(parse_options->option4, sizeof(parse_options->option4), "%s", argument4);
-    snprintf(parse_options->option5, sizeof(parse_options->option5), "%s", argument5);
     return parse_options;
+}
+
+// convert struct to process
+OptionsProcess *struct2process(OptionsStruct *option_struct){
+
+    OptionsProcess *opt_pro;
+    opt_pro = (OptionsProcess *)calloc(1, sizeof(OptionsProcess));
+    opt_pro->index = 0; // default is master machine
+
+    snprintf(opt_pro->command, sizeof(opt_pro->command), "%s", option_struct->command);
+    snprintf(opt_pro->process.machine[0].ip, sizeof(opt_pro->process.machine[0].ip), "%s", option_struct->option1);
+    snprintf(opt_pro->process.machine[1].ip, sizeof(opt_pro->process.machine[1].ip), "%s", option_struct->option2);
+    snprintf(opt_pro->process.app.name, sizeof(opt_pro->process.app.name), "%s", option_struct->option3);
+    snprintf(opt_pro->process.app.options, sizeof(opt_pro->process.app.options), "%s", option_struct->option4);
+    return opt_pro;
 }
 
 OptionsStruct *argv2struct(int argc, char *argv[]){
@@ -166,7 +181,13 @@ int helpPortMapper(){
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  list      list the current services in register machine table\n");
-    fprintf(stderr, "  quit      stop SRPC socket and quit\n");
+    fprintf(stderr, "  launch    <main-ip> <shadow-ip> <app> <options>\n");
+    fprintf(stderr, "            launch the application on master and shadow machine\n");
+    fprintf(stderr, "                <main-ip>   main ip \n");
+    fprintf(stderr, "                <shadow-ip> shadow ip\n");
+    fprintf(stderr, "                <app>       application to be running\n");
+    fprintf(stderr, "                <options>   options\n");
+    fprintf(stderr, "  quit      stop shadow socket and quit\n");
     return 0;
 }
 
