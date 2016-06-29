@@ -35,7 +35,7 @@ Packet *genRegister(char *manager_ip, char *supervisor_ip){
 
     snprintf(register_packet->sender_ip, sizeof(register_packet->sender_ip), "%s", manager_ip);
     snprintf(register_packet->receiver_ip, sizeof(register_packet->receiver_ip), "%s", supervisor_ip);
-    snprintf(register_packet->packet_type, sizeof(register_packet->packet_type), "%s", "0000"); // Register Packets (000)
+    snprintf(register_packet->packet_type, sizeof(register_packet->packet_type), "%s", "0000");
 
     register_packet->Data.app_process = (AppProcess) app_process; // Data
 

@@ -29,7 +29,7 @@ Packet *genLaunch(char *supervisor_ip, OptionsProcess *options){
 
     snprintf(_packet->sender_ip, sizeof(_packet->sender_ip), "%s", supervisor_ip);
     snprintf(_packet->receiver_ip, sizeof(_packet->receiver_ip), "%s", options->process.machine[options->index]);
-    snprintf(_packet->packet_type, sizeof(_packet->packet_type), "%s", "0100"); // Register Packets (000)
+    snprintf(_packet->packet_type, sizeof(_packet->packet_type), "%s", "0100");
 
     _packet->Data.app_process = (AppProcess) options->process; // Data
 

@@ -97,7 +97,7 @@ void *sockLaunch(void *arg){
     pthread_mutex_unlock(&register_mutex);
 
     /*packet_reply->Data.procedure_number should be packet_reply->Data.dup_numbers*/
-    if(strcmp(packet_reply->packet_type, "001") == 0) {
+    if(strcmp(packet_reply->packet_type, "0101") == 0) {
 
         /*packet_reply->Data.dup_numbers = dup_number * 10 + supervisor_exists;*/
         //int supervisor_exists = (packet_reply->Data.procedure_number) % 10;

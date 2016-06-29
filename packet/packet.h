@@ -120,7 +120,7 @@ typedef struct Packet{
     char sender_ip[32];
     char receiver_ip[32];
 
-    char packet_type[4];
+    char packet_type[5];
  
     #ifdef REGISTER_MACHINE
         Register_Machine Data;

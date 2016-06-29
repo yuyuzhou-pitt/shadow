@@ -74,12 +74,6 @@ void *sockregister(void *arg){
     char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "manager_client(0x%x): starting up, connecting to supervisor (%s)...\n", pthread_self(), supervisor->ip);
     logging(LOGFILE, logmsg);
 
-    /* There are 3 types of Packets to be exchanged via manager for registering:
-     * 1) Register service (from manager to register machine)         (000)
-     * 2) Register acknowledge (from register machine to manager)     (001)
-     * 3) Hello Packets (from manager to register machine)            (111)
-     * */
-
     if((host = gethostbyname(supervisor->ip)) == NULL ) { // got the remote manager
         perror("gethostbyname");
         exit(-1);
@@ -121,7 +115,7 @@ void *sockregister(void *arg){
     pthread_mutex_unlock(&register_mutex);
 
     /*packet_reply->Data.procedure_number should be packet_reply->Data.dup_numbers*/
-    if(strcmp(packet_reply->packet_type, "001") == 0) {
+    if(strcmp(packet_reply->packet_type, "0001") == 0) {
 
         /*packet_reply->Data.dup_numbers = dup_number * 10 + manager_exists;*/
         //int manager_exists = (packet_reply->Data.procedure_number) % 10;

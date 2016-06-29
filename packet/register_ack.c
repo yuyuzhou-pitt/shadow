@@ -9,21 +9,6 @@
 #include "../lib/liblog.h"
 #include "../lib/libsocket.h"
 
-/* typedef struct Register_Machine_Acknowledge{
-    //char packet_type[3]; //001
-    char version_number[8]; //why it's char?
-    char program_name[30]; //the program name on managers
-}Register_Machine_Ack;
-typedef struct Packet{
-    char sender_ip[32];
-    char receiver_ip[32];
-    //char netmask[32]; 
-    char packet_type[3];
-    Register_Serv Data;
-    char PacketChecksum[32]; // crc32
-}Packet;
-
-*/
 Packet *genRegisterReply(Packet *register_req, int dup_numbers){
     //int getPort(char *portstr, int size, char *ipfile)
     Register_Machine_Ack register_ack; // MUST NOT be pointer as to be send remote
@@ -37,7 +22,7 @@ Packet *genRegisterReply(Packet *register_req, int dup_numbers){
 
     snprintf(register_reply->sender_ip, sizeof(register_reply->sender_ip), "%s", register_req->receiver_ip);
     snprintf(register_reply->receiver_ip, sizeof(register_reply->receiver_ip), "%s", register_req->sender_ip);
-    //snprintf(register_reply->packet_type, sizeof(register_reply->packet_type), "%s", "001"); // Register Ack (001)
+    snprintf(register_reply->packet_type, sizeof(register_reply->packet_type), "%s", "0001"); // Register Ack (001)
 
     //register_reply->Data = (Register_Machine_Ack) register_ack; // Data
 
