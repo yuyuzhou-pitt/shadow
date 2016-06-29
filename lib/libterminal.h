@@ -21,6 +21,13 @@ typedef struct OptionsStruct{
     int manager_number;  // for sort use
 }OptionsStruct;
 
+/*for launch / leap command*/
+typedef struct OptionsProcess{
+    int index; // which machine, master or slave
+    char command[128];
+    AppProcess process;
+}OptionsProcess;
+
 /*split the string to array*/
 typedef struct SplitStr{
     int count;
@@ -32,6 +39,7 @@ typedef struct SplitStr{
 *************/
 
 OptionsStruct *command2struct(char *input);
+OptionsProcess *struct2process(OptionsStruct *option_struct);
 int quit();
 
 /*****************
