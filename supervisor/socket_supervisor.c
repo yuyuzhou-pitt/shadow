@@ -149,7 +149,7 @@ void *sock_supervisor(void *arg){
     port = Getsockname(sockfd, manager_sockaddr, sin_size);  /* Get the port number assigned*/
     writePort(port, addrstr);
     
-    snprintf(logmsg, sizeof(logmsg), "sockmanager: Server %s (%s) is setup on port: %d\n", addrstr, hostname, port);
+    snprintf(logmsg, sizeof(logmsg), "supervisor: Server %s (%s) is setup on port: %d\n", addrstr, hostname, port);
     logging(LOGFILE, logmsg);
     Listen(sockfd, MAX_QUE_CONN_NM);
    
@@ -190,7 +190,7 @@ void *sock_supervisor(void *arg){
 
         switch(nready){
             case -1:
-                printf("sockmanager: errno: %d.\n", errno);
+                printf("supervisor: errno: %d.\n", errno);
                 perror("\nSELECT: unexpected error occured.\n");
                 logging(LOGFILE, "\nSELECT: unexpected error occured.\n");
 
@@ -208,12 +208,12 @@ void *sock_supervisor(void *arg){
                 break;
             case 0:
                 /* timeout occuired */
-                printf("sockmanager: TIMEOUT... %d.\n", errno);
+                printf("supervisor: TIMEOUT... %d.\n", errno);
                 status=-1;
                 break;
             default:
                 if (FD_ISSET(sockfd, &ready_set)){
-                    //snprintf(logmsg, sizeof(logmsg), "sockmanager(0x%x): Listening socket is readable\n", pthread_self());
+                    //snprintf(logmsg, sizeof(logmsg), "supervisor(0x%x): Listening socket is readable\n", pthread_self());
                     //logging(LOGFILE, logmsg);
                     /* wait for connection */
                     logging(LOGFILE, "supervisor: 3\n");
@@ -227,7 +227,7 @@ void *sock_supervisor(void *arg){
 
                     FD_SET(client_fd, &test_set);
                     if (client_fd > maxfd) maxfd = client_fd;
-                    snprintf(logmsg, sizeof(logmsg), "sockmanager(0x%x): Descriptor %d is readable\n",  pthread_self(), client_fd);
+                    snprintf(logmsg, sizeof(logmsg), "supervisor(0x%x): Descriptor %d is readable\n",  pthread_self(), client_fd);
                     logging(LOGFILE, logmsg);
                     pthread_create(&threadid[iThread], &attr, &supervisor_thread, (void *)client_fd);
                     pthread_join(threadid[iThread], NULL);

@@ -80,11 +80,12 @@ void *sockLaunch(void *arg){
     pthread_mutex_lock(&register_mutex);
 
     Packet *packet_req, *packet_reply;
+    packet_req = (Packet *)malloc(sizeof(Packet));
 
     /* generate packet_req, provide:
      * - sender_ip (addrstr)
      * - supervisor_ip (remote_ipstr)*/
-    packet_req = genLaunch(addrstr, options); // msg to be sent out
+    genLaunch(packet_req, addrstr, options); // msg to be sent out
     logging(LOGFILE, "supervisor: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
@@ -99,25 +100,7 @@ void *sockLaunch(void *arg){
     /*packet_reply->Data.procedure_number should be packet_reply->Data.dup_numbers*/
     if(strcmp(packet_reply->packet_type, "0101") == 0) {
 
-        /*packet_reply->Data.dup_numbers = dup_number * 10 + supervisor_exists;*/
-        //int supervisor_exists = (packet_reply->Data.procedure_number) % 10;
-        //int dup_number = (packet_reply->Data.procedure_number) / 10;
-        int supervisor_exists = 0;
-        int dup_number = 0;
-
-        /*check is duplicated or not*/
-        if (dup_number == 0){
-            //fprintf(stdout, "Congratulations, %d services rigistered successfully!\n",
-            //       packet_req->Data.procedure_number);
-        }
-        //else if (dup_number == packet_req->Data.procedure_number){
-        //    fprintf(stdout, "Duplicated rigisteration! Check your commands!\n");
-        //}
-        else{
-            //fprintf(stdout, "Duplication found! %d of %d services rigistered successfully.\n",
-            //        packet_req->Data.procedure_number - dup_number,
-            //        packet_req->Data.procedure_number);
-        }
+        logging(LOGFILE, "supervisor: 5\n");
 
     } // endof if(strcmp(packet_reply
 
@@ -132,13 +115,16 @@ int launchApp(OptionsProcess *options){
     snprintf(logmsg, sizeof(logmsg), "(supervisor): socket client started, will launch the application.\n");
     logging(LOGFILE, logmsg); 
 
-    pthread_t sockid;
+    pthread_t sockid_main, sockid_shadow;
+    // for main machine
     options->process.machine[options->index].port = getRegisterPort(options->process.machine[options->index].ip, REGISTER_MACHINE_FILE);
-    pthread_create(&sockid, NULL, &sockLaunch, (void *)options);
-    // start the shadow machine
-    //options->index = 1;
-    //pthread_create(&sockid, NULL, &sockLaunch, (void *)options);
-    pthread_join(sockid, NULL);
+    pthread_create(&sockid_main, NULL, &sockLaunch, (void *)options);
+    // for shadow machine
+    options->index = 1;
+    options->process.machine[options->index].port = getRegisterPort(options->process.machine[options->index].ip, REGISTER_MACHINE_FILE);
+    pthread_create(&sockid_shadow, NULL, &sockLaunch, (void *)options);
 
+    pthread_join(sockid_main, NULL);
+    pthread_join(sockid_shadow, NULL);
     return 0;
 }

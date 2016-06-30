@@ -164,7 +164,7 @@ int getRegisterPort(char *machine_ip, char *file){
 
             /*to find the register info which match the request program_name, version_number, and procedure_name*/
             if(strcmp(manager_ip, machine_ip) == 0){
-                port = manager_port;
+                port = atoi(manager_port);
                 break; //jump out the while loop
             }
         }
