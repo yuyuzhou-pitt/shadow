@@ -14,7 +14,7 @@ endif
 all: manager
 
 manager:
-	${CC} ${WARN} -g ${THREADFLAG} -o manager manager.c socket_manager.c socket_register.c ../lib/libsocket.c ../lib/getaddrinfo.c ../lib/liblog.c ../lib/libfile.c ../lib/libterminal.c ../packet/register.c ../packet/checksum.c ../packet/register_ack.c
+	${CC} ${WARN} -g ${THREADFLAG} -o manager manager.c socket_manager.c socket_register.c ../lib/libsocket.c ../lib/getaddrinfo.c ../lib/liblog.c ../lib/libfile.c ../lib/libterminal.c ../packet/register.c ../packet/checksum.c ../packet/register_ack.c ../packet/launch_ack.c
 
 clean:
 ifneq ($(wildcard ../.1*),) 

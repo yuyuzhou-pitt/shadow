@@ -55,8 +55,16 @@ int main(int argc, char *argv[]){
     int sockfd;
     pthread_t sockmanagerid;
     pthread_create(&sockmanagerid, NULL, &sockmanager, (void *)sockfd);
+
+    char hostname[1024]; // local hostname and domain
+    char addrstr[100]; // local ip address (eth0)
+    getaddr(hostname, addrstr);
+
+    fprintf(stdout, "(manager): Staring manager...\n");
+    while( getPortNumber(addrstr) == -1 );
+    fprintf(stdout, "(manager): Manager started (ip port): %s %d.\n", addrstr, getPortNumber(addrstr));
     fprintf(stdout, "(manager): Ready to receive jobs, please track log file for detail: %s\n", LOGFILE);
-    
+
     registerServices(&machine);
     pthread_join(sockmanagerid, NULL);
     return 0;
