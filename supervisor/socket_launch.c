@@ -35,17 +35,13 @@ typedef struct HelloArgs{
     Packet *packet;
 }HelloArgs;
 
-pthread_mutex_t register_mutex;
+pthread_mutex_t launch_mutex;
 pthread_mutex_t hello_mutex;
 
 
 /* thread for launch application */
-void *sockLaunch(void *arg){
-    OptionsProcess *options;
-    options = (char *)malloc(sizeof(struct OptionsStruct));
-    options = (struct OptionsStruct *)arg;
-
-    Machine *manager = &(options->process.machine[options->index]);
+//void *sockLaunch(void *arg){
+void *sockLaunch(Machine *machine, AppPath *app){
 
     int clientfd,sendbytes,recvbytes;
     struct hostent *host;
@@ -53,10 +49,10 @@ void *sockLaunch(void *arg){
 
     getaddr(hostname, addrstr); //get hostname and ip, getaddrinfo.h
    
-    char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "supervisor_client(0x%x): starting up, connecting to manager (%s)...\n", pthread_self(), manager->ip);
+    char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "supervisor_client(0x%x): starting up, connecting to manager (%s)...\n", pthread_self(), machine->ip);
     logging(LOGFILE, logmsg);
 
-    if((host = gethostbyname(manager->ip)) == NULL ) { // got the remote machine
+    if((host = gethostbyname(machine->ip)) == NULL ) { // got the remote machine
         perror("gethostbyname");
         exit(-1);
     };
@@ -67,7 +63,7 @@ void *sockLaunch(void *arg){
 
     /*parameters for sockaddr_in*/
     sockaddr.sin_family = AF_INET;
-    sockaddr.sin_port = htons(manager->port);
+    sockaddr.sin_port = htons(machine->port);
     sockaddr.sin_addr = *((struct in_addr *)host->h_addr);
     bzero(&(sockaddr.sin_zero), 8);
 
@@ -77,7 +73,6 @@ void *sockLaunch(void *arg){
 
     logging(LOGFILE, "supervisor: 1\n");
 
-    pthread_mutex_lock(&register_mutex);
 
     Packet *packet_req, *packet_reply;
     packet_req = (Packet *)malloc(sizeof(Packet));
@@ -85,7 +80,7 @@ void *sockLaunch(void *arg){
     /* generate packet_req, provide:
      * - sender_ip (addrstr)
      * - supervisor_ip (remote_ipstr)*/
-    genLaunch(packet_req, addrstr, options); // msg to be sent out
+    genLaunch(packet_req, addrstr, machine, app); // msg to be sent out
     logging(LOGFILE, "supervisor: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
@@ -95,7 +90,6 @@ void *sockLaunch(void *arg){
     Recv(clientfd, packet_reply, sizeof(Packet), MSG_NOSIGNAL);
     logging(LOGFILE, "supervisor: 4\n");
 
-    pthread_mutex_unlock(&register_mutex);
 
     /*packet_reply->Data.procedure_number should be packet_reply->Data.dup_numbers*/
     if(strcmp(packet_reply->packet_type, "0101") == 0) {
@@ -106,25 +100,23 @@ void *sockLaunch(void *arg){
 
     free(packet_reply);
     close(clientfd);
-    pthread_exit(0);
+    //pthread_exit(0);
 }
 
 // start a client thread to register the services to register machine table
 int launchApp(OptionsProcess *options){
-    char logmsg[128];
-    snprintf(logmsg, sizeof(logmsg), "(supervisor): socket client started, will launch the application.\n");
+    char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "(supervisor): socket client started, will launch the application.\n");
     logging(LOGFILE, logmsg); 
 
-    pthread_t sockid_main, sockid_shadow;
+    Machine main = options->process.machine[0];
+    main.port = getRegisterPort(main.ip, REGISTER_MACHINE_FILE);
+    Machine shadow = options->process.machine[1];
+    shadow.port = getRegisterPort(shadow.ip, REGISTER_MACHINE_FILE);
+    
     // for main machine
-    options->process.machine[options->index].port = getRegisterPort(options->process.machine[options->index].ip, REGISTER_MACHINE_FILE);
-    pthread_create(&sockid_main, NULL, &sockLaunch, (void *)options);
-    // for shadow machine
-    options->index = 1;
-    options->process.machine[options->index].port = getRegisterPort(options->process.machine[options->index].ip, REGISTER_MACHINE_FILE);
-    pthread_create(&sockid_shadow, NULL, &sockLaunch, (void *)options);
+    sockLaunch(&main, &(options->process.app));
 
-    pthread_join(sockid_main, NULL);
-    pthread_join(sockid_shadow, NULL);
+    // for shadow machine
+    sockLaunch(&shadow, &(options->process.app));
     return 0;
 }

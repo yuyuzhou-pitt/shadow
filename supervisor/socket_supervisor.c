@@ -216,9 +216,7 @@ void *sock_supervisor(void *arg){
                     //snprintf(logmsg, sizeof(logmsg), "supervisor(0x%x): Listening socket is readable\n", pthread_self());
                     //logging(LOGFILE, logmsg);
                     /* wait for connection */
-                    logging(LOGFILE, "supervisor: 3\n");
                     client_fd = Accept(sockfd, client_sockaddr, sin_size);
-                    logging(LOGFILE, "supervisor: 4\n");
                     for(k=0;k<FD_SETSIZE;k++){
                         if(client[k] < 0){
                             client[k] = client_fd;

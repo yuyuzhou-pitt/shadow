@@ -22,16 +22,17 @@
  *   192.168.1,1| 54321      | ScientificLibrary | 1  | Multiply
 */
 
-void genLaunch(Packet *_packet, char *supervisor_ip, OptionsProcess *options){
+void genLaunch(Packet *_packet, char *supervisor_ip, Machine *machine, AppPath *app){
     /*wrap into packet*/
     //Packet *_packet;
     //_packet = (Packet *)malloc(sizeof(Packet)); //Packet with Register_Machineice type Data
 
     snprintf(_packet->sender_ip, sizeof(_packet->sender_ip), "%s", supervisor_ip);
-    snprintf(_packet->receiver_ip, sizeof(_packet->receiver_ip), "%s", options->process.machine[options->index].ip);
+    snprintf(_packet->receiver_ip, sizeof(_packet->receiver_ip), "%s", machine->ip);
     snprintf(_packet->packet_type, sizeof(_packet->packet_type), "%s", "0100");
 
-    _packet->Data.app_process = (AppProcess) options->process; // Data
+    _packet->Data.app_process.machine[0] = (Machine) *machine; // Data
+    _packet->Data.app_process.app = (AppPath) *app; // Data
 
     /*checksum*/
     snprintf(_packet->PacketChecksum, sizeof(_packet->PacketChecksum), 
