@@ -106,7 +106,7 @@ void *manager_thread(void *arg){
     //shutdown(sockfd, SHUT_RDWR);
     //snprintf(logmsg, sizeof(logmsg), "managerthread(0x%x): served request, exiting thread\n", pthread_self());
     //logging(LOGFILE, logmsg);
-    //pthread_exit(0);
+    pthread_exit(0);
 }
 
 void *sockmanager(void *arg){
@@ -235,6 +235,7 @@ void *sockmanager(void *arg){
                     iThread++;
                 }// end if (FD_ISSET(i, &ready_set))
         }// end switch
+        usleep(100);
     } // end while (status==CONTINUE)
     close(sockfd);
     unlinkPortFile(addrstr);
