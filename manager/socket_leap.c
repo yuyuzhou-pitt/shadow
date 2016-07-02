@@ -72,7 +72,7 @@ void *sockLeap(Packet *packet){
     /* generate packet_req, provide:
      * - sender_ip (addrstr)
      * - manager_ip (remote_ipstr)*/
-    genLeap(packet_req, addrstr, packet->Data.app_process); // msg to be sent out
+    genLeap(packet_req, addrstr, &(packet->Data.app_process)); // msg to be sent out
     logging(LOGFILE, "leap manager: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
