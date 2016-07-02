@@ -20,7 +20,8 @@ int systemDump(Packet *packet_recv){
     strcat(cmd, ":/tmp/");
     //strcat(cmd, packet_recv->Data.app_process.machine[0].ip);
 
-    // execute
+    //systemLaunch(cmd);
+    #define WAIT_FOR_COMPLETION
     systemLaunch(cmd);
 }
 
@@ -29,8 +30,7 @@ int systemRestore(Packet *packet_recv){
     memset(cmd, 0, sizeof(cmd));
     // scritp
     strcpy(cmd, "../application/script/restore-app.sh ");
-    strcat(cmd, "/tmp/");
-    strcat(cmd, packet_recv->Data.app_process.machine[0].ip);
+    strcat(cmd, packet_recv->Data.app_process.pid);
     // target directory
     systemLaunch(cmd);
 }
@@ -47,6 +47,27 @@ int systemLaunch(char *cmd)
                     return -1;
             }
     }
+
+#ifdef WAIT_FOR_COMPLETION
+    timeout = 10000;
+
+    while (0 == waitpid(my_pid , &status , WNOHANG)) {
+            if ( --timeout < 0 ) {
+                    perror("timeout");
+                    return -1;
+            }
+            sleep(1);
+    }
+
+    //printf("%s WEXITSTATUS %d WIFEXITED %d [status %d]\n",
+    //        argv[0], WEXITSTATUS(status), WIFEXITED(status), status);
+
+    if (1 != WIFEXITED(status) || 0 != WEXITSTATUS(status)) {
+            perror("%s failed, halt system");
+            return -1;
+    }
+
+#endif
 
     return 0;
 }

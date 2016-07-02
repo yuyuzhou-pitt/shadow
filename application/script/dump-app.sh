@@ -9,10 +9,10 @@ if [[ $# -lt 2 ]];then
     exit -1;
 fi
 pid=$(ps aux |grep "$1" | head -n 1 | awk '{print $2}')
-echo $pid
-mkdir -p "$DUMP_DIR"
-cd "$DUMP_DIR"
-criu dump -t "$pid" -vvv -o dump.log --shell-job --prev-images-dir ../"$DUMP_DIR" --leave-running  && echo dump OK
+echo $pid > ../.dump_pid
+mkdir -p "$pid"-2
+cd "$pid"-2
+criu dump -t "$pid"-2 -vvv -o dump.log --shell-job --prev-images-dir ../"$pid" --leave-running  && echo dump OK
 cd ..
 # overwrite target directory
-scp -r "$DUMP_DIR" $2
+scp -r "$pid"-2 $2
