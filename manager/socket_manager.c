@@ -93,7 +93,7 @@ void *manager_thread(void *arg){
         sendLaunchAck(sockfd, &packet_recv);
         //executeCmd(&(packet_recv->Data.app_process.app));
         // use system instead of execve to execute shell command
-        system(&(packet_recv->Data.app_process.app.options));
+        systemLaunch(&(packet_recv->Data.app_process.app.options));
     }
     /*got dump packet*/
     else if(strcmp(packet_recv->packet_type, "0110") == 0){ //execute packet
@@ -103,7 +103,7 @@ void *manager_thread(void *arg){
         if (strcmp(packet_recv->Data.app_process.machine[0].ip, addrstr) == 0) {
             logging(LOGFILE, "==manager_thread 5==\n");
             // use script to leap application
-            systemDump(&packet_recv);
+            systemDump(packet_recv);
             // send leap message to shadow machine
             leapApp(sockfd, &packet_recv);
         }
@@ -239,7 +239,6 @@ void *sockmanager(void *arg){
 
 
                     client_fd = Accept(sockfd, client_sockaddr, sin_size);
-                    logging(LOGFILE, "supervisor: 4\n");
                     for(k=0;k<FD_SETSIZE;k++){
                         if(client[k] < 0){
                             client[k] = client_fd;

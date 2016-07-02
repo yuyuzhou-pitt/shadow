@@ -35,11 +35,13 @@ pthread_mutex_t dump_mutex;
 
 /* thread for dump application */
 //void *sockDump(void *arg){
-void *sockDump(Machine *machine, AppPath *app){
+void *sockDump(OptionsProcess *options){
 
     int clientfd,sendbytes,recvbytes;
     struct hostent *host;
     struct sockaddr_in sockaddr;
+
+    Machine *machine = &(options->process.machine[0]);
 
     getaddr(hostname, addrstr); //get hostname and ip, getaddrinfo.h
    
@@ -74,7 +76,7 @@ void *sockDump(Machine *machine, AppPath *app){
     /* generate packet_req, provide:
      * - sender_ip (addrstr)
      * - supervisor_ip (remote_ipstr)*/
-    genDump(packet_req, addrstr, machine, app); // msg to be sent out
+    genDump(packet_req, addrstr, options); // msg to be sent out
     logging(LOGFILE, "supervisor: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
@@ -102,15 +104,7 @@ int dumpApp(OptionsProcess *options){
     char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "(supervisor): socket client started, will dump the application.\n");
     logging(LOGFILE, logmsg); 
 
-    Machine main = options->process.machine[0];
-    main.port = getRegisterPort(main.ip, REGISTER_MACHINE_FILE);
-    Machine shadow = options->process.machine[1];
-    shadow.port = getRegisterPort(shadow.ip, REGISTER_MACHINE_FILE);
-    
     // for main machine
-    sockDump(&main, &(options->process.app));
-
-    // for shadow machine
-    sockDump(&shadow, &(options->process.app));
+    sockDump(options);
     return 0;
 }
