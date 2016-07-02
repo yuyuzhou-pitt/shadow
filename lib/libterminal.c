@@ -54,7 +54,7 @@ OptionsStruct *command2struct(char *input){
     snprintf(parse_options->option1, sizeof(parse_options->option1), "%s", argument1);
     snprintf(parse_options->option2, sizeof(parse_options->option2), "%s", argument2);
     snprintf(parse_options->option3, sizeof(parse_options->option3), "%s", argument3);
-    snprintf(parse_options->option4, sizeof(parse_options->option4), "%s", argument4);
+    snprintf(parse_options->option4, sizeof(parse_options->option4), "%s", temp3); // pass full shell cmd to execute
     return parse_options;
 }
 

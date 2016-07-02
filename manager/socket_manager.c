@@ -25,6 +25,7 @@
 #include "../lib/getaddrinfo.h"
 #include "../lib/liblog.h"
 #include "../lib/libfile.h"
+#include "../lib/libcmd.h"
 
 #define PORT 0 //0 means assign a port randomly
 #define BUFFER_SIZE  1024
@@ -58,8 +59,6 @@ void *manager_thread(void *arg){
 
     struct sockaddr_in client_sockaddr;
 
-    OptionsStruct *result_options;
-    result_options = (OptionsStruct *)malloc(sizeof(OptionsStruct));
     char client_ip[100];
     char manager_ip[100];
 
@@ -98,11 +97,13 @@ void *manager_thread(void *arg){
     if(strcmp(packet_recv->packet_type, "0100") == 0){ //execute packet
         logging(LOGFILE, "==manager_thread 3==\n");
         sendLaunchAck(sockfd, &packet_recv);
+        //executeCmd(&(packet_recv->Data.app_process.app));
+        // use system instead of execve to execute shell command
+        system(&(packet_recv->Data.app_process.app.options));
     }
 
     pthread_mutex_unlock(&mutex);
 
-    free(result_options);
     //shutdown(sockfd, SHUT_RDWR);
     //snprintf(logmsg, sizeof(logmsg), "managerthread(0x%x): served request, exiting thread\n", pthread_self());
     //logging(LOGFILE, logmsg);
