@@ -21,7 +21,7 @@ int systemDump(Packet *packet_recv){
     //strcat(cmd, packet_recv->Data.app_process.machine[0].ip);
 
     // execute
-    system(cmd);
+    systemLaunch(cmd);
 }
 
 int systemRestore(Packet *packet_recv){
@@ -32,7 +32,7 @@ int systemRestore(Packet *packet_recv){
     strcat(cmd, "/tmp/");
     strcat(cmd, packet_recv->Data.app_process.machine[0].ip);
     // target directory
-    system(cmd);
+    systemLaunch(cmd);
 }
 
 /*http://stackoverflow.com/questions/5237482/how-do-i-execute-external-program-within-c-code-in-linux-with-arguments*/
