@@ -30,12 +30,12 @@
 char hostname[1024]; // local hostname and domain
 char addrstr[100]; // local ip address (eth0)
 
-pthread_mutex_t leap_mutex;
+pthread_mutex_t dump_mutex;
 
 
-/* thread for leap application */
-//void *sockLeap(void *arg){
-void *sockLeap(Machine *machine, AppPath *app){
+/* thread for dump application */
+//void *sockDump(void *arg){
+void *sockDump(Machine *machine, AppPath *app){
 
     int clientfd,sendbytes,recvbytes;
     struct hostent *host;
@@ -74,7 +74,7 @@ void *sockLeap(Machine *machine, AppPath *app){
     /* generate packet_req, provide:
      * - sender_ip (addrstr)
      * - supervisor_ip (remote_ipstr)*/
-    genLeap(packet_req, addrstr, machine, app); // msg to be sent out
+    genDump(packet_req, addrstr, machine, app); // msg to be sent out
     logging(LOGFILE, "supervisor: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
@@ -85,8 +85,8 @@ void *sockLeap(Machine *machine, AppPath *app){
     logging(LOGFILE, "supervisor: 4\n");
 
 
-    /*packet_reply->Data.procedure_number should be packet_reply->Data.dup_numbers*/
-    if(strcmp(packet_reply->packet_type, "1001") == 0) {
+    /*got dump ack*/
+    if(strcmp(packet_reply->packet_type, "0111") == 0) {
 
         logging(LOGFILE, "supervisor: 5\n");
 
@@ -98,8 +98,8 @@ void *sockLeap(Machine *machine, AppPath *app){
 }
 
 // start a client thread to register the services to register machine table
-int leapApp(OptionsProcess *options){
-    char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "(supervisor): socket client started, will leap the application.\n");
+int dumpApp(OptionsProcess *options){
+    char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "(supervisor): socket client started, will dump the application.\n");
     logging(LOGFILE, logmsg); 
 
     Machine main = options->process.machine[0];
@@ -108,9 +108,9 @@ int leapApp(OptionsProcess *options){
     shadow.port = getRegisterPort(shadow.ip, REGISTER_MACHINE_FILE);
     
     // for main machine
-    sockLeap(&main, &(options->process.app));
+    sockDump(&main, &(options->process.app));
 
     // for shadow machine
-    sockLeap(&shadow, &(options->process.app));
+    sockDump(&shadow, &(options->process.app));
     return 0;
 }
