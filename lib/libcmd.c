@@ -26,7 +26,7 @@ int systemDump(Packet *packet_recv){
 }
 
 int systemRestore(Packet *packet_recv){
-    char cmd[17];
+    char cmd[255];
     memset(cmd, 0, sizeof(cmd));
     // scritp
     strcpy(cmd, "../application/script/restore-app.sh ");
