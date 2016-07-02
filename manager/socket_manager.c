@@ -67,13 +67,6 @@ void *manager_thread(void *arg){
     int sendFlag = 1; 
     int counter = 0;
 
-    //Packet_Seq *incoming_head, *outgoing_head, *trimed_head;
-    //incoming_head = initListSeq();
-    //Packet_Seq *outgoing_head;
-    //outgoing_head = (Packet_Seq *)malloc(sizeof(Packet_Seq));
-    //outgoing_head = initListSeq();
-    //trimed_head = incoming_head; //trimed header is used to avoid unessary link list scan. 
-
     /*lock the send back in case it interrupt by other threads*/
     pthread_mutex_lock(&mutex);
 
@@ -102,13 +95,30 @@ void *manager_thread(void *arg){
         // use system instead of execve to execute shell command
         system(&(packet_recv->Data.app_process.app.options));
     }
-    /*leap app*/
-    else if(strcmp(packet_recv->packet_type, "1000") == 0){ //execute packet
+    /*got dump packet*/
+    else if(strcmp(packet_recv->packet_type, "0110") == 0){ //execute packet
         logging(LOGFILE, "==manager_thread 4==\n");
+        sendDumpAck(sockfd, &packet_recv);
+        // dump app on main (machine 0)
+        if (strcmp(packet_recv->Data.app_process.machine[0].ip, addrstr) == 0) {
+            logging(LOGFILE, "==manager_thread 5==\n");
+            // use script to leap application
+            systemDump(&packet_recv);
+            // send leap message to shadow machine
+            leapApp(sockfd, &packet_recv);
+        }
+    }
+
+    /*got restore (leap) packet*/
+    else if(strcmp(packet_recv->packet_type, "1000") == 0){ //execute packet
+        logging(LOGFILE, "==manager_thread 6==\n");
         sendLeapAck(sockfd, &packet_recv);
-        //executeCmd(&(packet_recv->Data.app_process.app));
-        // use system instead of execve to execute shell command
-        //system(&(packet_recv->Data.app_process.app.options));
+        // restore app on shadow (machine 1)
+        if (strcmp(packet_recv->Data.app_process.machine[1].ip, addrstr) == 0) {
+            logging(LOGFILE, "==manager_thread 7==\n");
+            // restore the leaped app on shadow machine
+            systemRestore(&packet_recv);
+        }
     }
 
     pthread_mutex_unlock(&mutex);
