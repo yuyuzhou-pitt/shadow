@@ -104,6 +104,9 @@ int dumpApp(OptionsProcess *options){
     char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "(supervisor): socket client started, will dump the application.\n");
     logging(LOGFILE, logmsg); 
 
+    options->process.machine[0].port = getRegisterPort(main.ip, REGISTER_MACHINE_FILE);
+    options->process.machine[1].port = getRegisterPort(shadow.ip, REGISTER_MACHINE_FILE);
+
     // for main machine
     sockDump(options);
     return 0;

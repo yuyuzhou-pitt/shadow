@@ -105,7 +105,7 @@ void *manager_thread(void *arg){
             // use script to leap application
             systemDump(packet_recv);
             // send leap message to shadow machine
-            leapApp(sockfd, &packet_recv);
+            leapApp(packet_recv);
         }
     }
 
@@ -117,7 +117,7 @@ void *manager_thread(void *arg){
         if (strcmp(packet_recv->Data.app_process.machine[1].ip, addrstr) == 0) {
             logging(LOGFILE, "==manager_thread 7==\n");
             // restore the leaped app on shadow machine
-            systemRestore(&packet_recv);
+            systemRestore(packet_recv);
         }
     }
 

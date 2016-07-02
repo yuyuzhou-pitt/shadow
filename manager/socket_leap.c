@@ -32,11 +32,12 @@ char addrstr[100]; // local ip address (eth0)
 
 /* thread for leap application */
 //void *sockLeap(void *arg){
-void *sockLeap(Machine *machine, AppPath *app){
+void *sockLeap(Packet *packet){
 
     int clientfd,sendbytes,recvbytes;
     struct hostent *host;
     struct sockaddr_in sockaddr;
+    Machine *machine = &(packet->Data.app_process.machine[1]);
 
     getaddr(hostname, addrstr); //get hostname and ip, getaddrinfo.h
    
@@ -71,7 +72,7 @@ void *sockLeap(Machine *machine, AppPath *app){
     /* generate packet_req, provide:
      * - sender_ip (addrstr)
      * - manager_ip (remote_ipstr)*/
-    genLeap(packet_req, addrstr, machine, app); // msg to be sent out
+    genLeap(packet_req, addrstr, packet->Data.app_process); // msg to be sent out
     logging(LOGFILE, "leap manager: 2\n");
     send(clientfd, packet_req, sizeof(Packet), MSG_NOSIGNAL);
 
@@ -95,14 +96,12 @@ void *sockLeap(Machine *machine, AppPath *app){
 }
 
 // start a client thread to register the services to register machine table
-int leapApp(OptionsProcess *options){
+int leapApp(Packet *packet){
     char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "(manager): socket client started, will leap the application.\n");
     logging(LOGFILE, logmsg); 
 
-    Machine main = options->process.machine[0];
-    
     // for main machine
-    sockLeap(&main, &(options->process.app));
+    sockLeap(packet);
 
     return 0;
 }
