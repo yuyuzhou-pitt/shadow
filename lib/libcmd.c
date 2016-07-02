@@ -4,6 +4,36 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdio.h>
+#include "../packet/packet.h"
+
+int systemDump(Packet *packet_recv){
+    /* execution */
+    char cmd[255];
+    memset(cmd, 0, sizeof(cmd));
+    // scritp
+    strcpy(cmd, "../application/script/dump-app.sh ");
+    // application
+    strcat(cmd, packet_recv->Data.app_process.app.options);
+    strcat(cmd, " ");
+    // target machine (shadow)
+    strcat(cmd, packet_recv->Data.app_process.machine[1].ip);
+    strcat(cmd, ":/tmp/");
+    strcat(cmd, packet_recv->Data.app_process.app.name);
+
+    // execute
+    system(cmd);
+}
+
+int systemRestore(Packet *packet_recv){
+    char cmd[17];
+    memset(cmd, 0, sizeof(cmd));
+    // scritp
+    strcpy(cmd, "../application/script/restore-app.sh ");
+    strcat(cmd, "/tmp/");
+    strcat(cmd, packet_recv->Data.app_process.app.name);
+    // target directory
+    system(cmd);
+}
 
 /*http://stackoverflow.com/questions/5237482/how-do-i-execute-external-program-within-c-code-in-linux-with-arguments*/
 static int execCmd(const char **argv)

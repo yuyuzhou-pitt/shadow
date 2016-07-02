@@ -87,7 +87,7 @@ int main(int argc, char *argv[]){
                 }
                 else{
                     process = struct2process(options);
-                    leapApp(process);
+                    dumpApp(process);
                 }
             }
             else if(strcmp(sub_command, "launch") == 0){ // there is a \n in the stdin
