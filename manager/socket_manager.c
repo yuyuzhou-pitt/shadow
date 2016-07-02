@@ -94,12 +94,21 @@ void *manager_thread(void *arg){
     char trans_id[32]; //record the transaction id, in case multiple sequences
     Packet *execute_ack;// = genExecuteAck(trimed_head);
     int endTransaction = 0;
+    /*launch app*/
     if(strcmp(packet_recv->packet_type, "0100") == 0){ //execute packet
         logging(LOGFILE, "==manager_thread 3==\n");
         sendLaunchAck(sockfd, &packet_recv);
         //executeCmd(&(packet_recv->Data.app_process.app));
         // use system instead of execve to execute shell command
         system(&(packet_recv->Data.app_process.app.options));
+    }
+    /*leap app*/
+    else if(strcmp(packet_recv->packet_type, "1000") == 0){ //execute packet
+        logging(LOGFILE, "==manager_thread 4==\n");
+        sendLeapAck(sockfd, &packet_recv);
+        //executeCmd(&(packet_recv->Data.app_process.app));
+        // use system instead of execve to execute shell command
+        //system(&(packet_recv->Data.app_process.app.options));
     }
 
     pthread_mutex_unlock(&mutex);
