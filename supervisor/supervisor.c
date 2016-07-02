@@ -80,6 +80,16 @@ int main(int argc, char *argv[]){
             else if(strcmp(sub_command, "help") == 0){ // there is a \n in the stdin
                 helpPortMapper();
             }
+            else if(strcmp(sub_command, "leap") == 0){ // there is a \n in the stdin
+
+                if(options->count < 3){
+                    helpPortMapper();
+                }
+                else{
+                    process = struct2process(options);
+                    leapApp(process);
+                }
+            }
             else if(strcmp(sub_command, "launch") == 0){ // there is a \n in the stdin
 
                 if(options->count < 4){

@@ -181,12 +181,17 @@ int helpPortMapper(){
     fprintf(stderr, "Subcommands:\n");
     fprintf(stderr, "  help      show this message\n");
     fprintf(stderr, "  list      list the current services in register machine table\n");
-    fprintf(stderr, "  launch    <main-ip> <shadow-ip> <app> <options>\n");
+    fprintf(stderr, "  leap    <main-ip> <shadow-ip> <full-app-path>\n");
     fprintf(stderr, "            launch the application on master and shadow machine\n");
     fprintf(stderr, "                <main-ip>   main ip \n");
     fprintf(stderr, "                <shadow-ip> shadow ip\n");
-    fprintf(stderr, "                <app>       application to be running\n");
-    fprintf(stderr, "                <options>   options\n");
+    fprintf(stderr, "                <full-app-path> [options]      application to leap\n");
+    fprintf(stderr, "  launch    <main-ip> <shadow-ip> <full-app-path> [options]\n");
+    fprintf(stderr, "            launch the application on master and shadow machine\n");
+    fprintf(stderr, "                <main-ip>   main ip \n");
+    fprintf(stderr, "                <shadow-ip> shadow ip\n");
+    fprintf(stderr, "                <full-app-path> [options]      application to run\n");
+    fprintf(stderr, "                                               options are optional\n");
     fprintf(stderr, "  quit      stop shadow socket and quit\n");
     return 0;
 }
@@ -224,51 +229,6 @@ int listPortMapper(){
     }
 
     fclose(fp);
-
-    return 0;
-}
-
-/************
-* 3. manager *
-************/
-
-int helpServer(){
-    fprintf(stderr, "\nUsage: <subcommand> [options]\n");
-    fprintf(stderr, "A user interface for the shadow system.\n\n");
-    fprintf(stderr, "Subcommands:\n");
-    fprintf(stderr, "  help      show this message\n");
-    fprintf(stderr, "  register  <program-name> <version-number>\n");
-    fprintf(stderr, "            register services into register machine table\n");
-    fprintf(stderr, "                <program-name>   the program name provided by this manager\n");
-    fprintf(stderr, "                <version-number> version number for the program\n");
-    fprintf(stderr, "  quit      stop shadow socket and quit\n");
-    fprintf(stderr, "\n");
-    fprintf(stderr, "For example:\n");
-    fprintf(stderr, "1. To register Map Reduce Library version 1:\n");
-    fprintf(stderr, "# register MapReduceLibrary 1\n\n");
-    return 0;
-}
-
-/************
-* 4. client *
-************/
-
-int helpClient(){
-    fprintf(stderr, "\nUsage: <subcommand> [options]\n");
-    fprintf(stderr, "A user interface for the shadow system.\n\n");
-    fprintf(stderr, "Subcommands:\n");
-    fprintf(stderr, "  help      show this message\n");
-    fprintf(stderr, "  request   <program-name> <version-number> <procedure>\n");
-    fprintf(stderr, "		request manager info for certain procedure provided by certain program of certain version\n");
-    fprintf(stderr, "  execute   <program-name> <version-number> <procedure> <input_file> <out_putfile>\n");
-    fprintf(stderr, "            request and call the remote procedure call\n");
-    fprintf(stderr, "  quit      stop shadow socket and quit\n");
-    fprintf(stderr, "\n");
-    fprintf(stderr, "For example:\n");
-    fprintf(stderr, "1. To request Multipy in Scientific Library version 2:\n");
-    fprintf(stderr, "# request ScientificLibrary 2 Multiply\n");
-    fprintf(stderr, "2. To execute Index in Map Reduce Library version 1:\n");
-    fprintf(stderr, "# execute MapReduceLibrary 1 Index ../input ../output\n\n");
 
     return 0;
 }

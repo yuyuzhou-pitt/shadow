@@ -14,7 +14,7 @@ endif
 all:supervisor
 
 supervisor:
-	${CC} ${WARN} -g ${THREADFLAG} -o supervisor supervisor.c socket_supervisor.c socket_launch.c ../lib/libsocket.c ../lib/getaddrinfo.c ../lib/liblog.c ../lib/libfile.c ../lib/libterminal.c ../packet/checksum.c ../packet/launch.c ../packet/register_machine.c ../packet/register_ack.c
+	${CC} ${WARN} -g ${THREADFLAG} -o supervisor supervisor.c socket_supervisor.c socket_launch.c socket_leap.c ../lib/libsocket.c ../lib/getaddrinfo.c ../lib/liblog.c ../lib/libfile.c ../lib/libterminal.c ../packet/checksum.c ../packet/launch.c ../packet/leap.c ../packet/register_machine.c ../packet/register_ack.c 
 
 clean:
 ifneq ($(wildcard supervisor),)
