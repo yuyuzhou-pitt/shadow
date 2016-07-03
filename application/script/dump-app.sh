@@ -4,6 +4,10 @@
 PID_FILE=../.1_dump_pid
 rm -rf $PID_FILE
 
+timestamp() {
+    date +"%T.%N"
+}
+
 DUMP_DIR=`hostname -i | awk '{print $NF}'`
 if [[ $# -lt 2 ]];then
     echo "USAGE: dump-app.sh <full-app-path> <shadow-ip:/tmp/dump_$pid>"
@@ -11,10 +15,20 @@ if [[ $# -lt 2 ]];then
     exit -1;
 fi
 pid=$(ps aux |grep "$1" | head -n 1 | awk '{print $2}')
-mkdir -p "$pid"-2
-cd "$pid"-2
-criu dump -t "$pid"-2 -vvv -o dump.log --shell-job --prev-images-dir ../"$pid" --leave-running  && echo dump OK
+mkdir -p "$pid"
+cd "$pid"
+
+printf "+--BEFORE-DUMP-------\n"
+timestamp 
+printf "+-------------------+\n"
+criu dump -t "$pid" -vvv -o dump.log --shell-job --prev-images-dir ../"$pid" --leave-running  && echo dump OK
+printf "+--AFTER-DUMP-------+\n"
+timestamp 
+printf "+-------------------+\n"
 cd ..
 # overwrite target directory
-scp -r "$pid"-2 $2
+scp -r "$pid" $2
+printf "+--AFTER-COPY-------+\n"
+timestamp 
+printf "+-------------------+\n"
 echo $pid > $PID_FILE
