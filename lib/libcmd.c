@@ -29,7 +29,8 @@ int systemRestore(Packet *packet_recv){
     memset(cmd, 0, sizeof(cmd));
     // scritp
     strcpy(cmd, "../application/script/restore-app.sh ");
-    strcat(cmd, packet_recv->Data.app_process.pid);
+    char pid[32]; snprintf(pid, 10, "%d", packet_recv->Data.app_process.pid);
+    strcat(cmd, pid);
     // target directory
     systemLaunch(cmd);
 }
