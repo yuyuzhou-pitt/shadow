@@ -100,7 +100,9 @@ int leapApp(Packet *packet){
     char logmsg[128]; snprintf(logmsg, sizeof(logmsg), "(manager): socket client started, will leap the application.\n");
     logging(LOGFILE, logmsg); 
 
-    packet->Data.app_process.pid = getPortNumber("dump_pid");
+    // wait until pid file generated
+    while (getPortNumber("1_dump_pid") == -1);
+    packet->Data.app_process.pid = getPortNumber("1_dump_pid");
     // for main machine
     sockLeap(packet);
 
