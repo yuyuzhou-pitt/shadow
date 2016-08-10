@@ -67,7 +67,7 @@ void *sockLeap(Packet *packet){
 
 
     Packet *packet_req, *packet_reply;
-    packet_req = (Packet *)cmalloc(1, sizeof(Packet));
+    packet_req = (Packet *)calloc(1, sizeof(Packet));
 
     /* generate packet_req, provide:
      * - sender_ip (addrstr)
