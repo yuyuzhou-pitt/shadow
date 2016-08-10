@@ -93,7 +93,7 @@ void *manager_thread(void *arg){
         sendLaunchAck(sockfd, &packet_recv);
         //executeCmd(&(packet_recv->Data.app_process.app));
         // use system instead of execve to execute shell command
-        systemLaunch(&(packet_recv->Data.app_process.app.options));
+        systemLaunch(&(packet_recv->Data.app_process.app.options), sockfd);
     }
     /*got dump packet*/
     else if(strcmp(packet_recv->packet_type, "0110") == 0){ //execute packet
@@ -103,7 +103,7 @@ void *manager_thread(void *arg){
         if (strcmp(packet_recv->Data.app_process.machine[0].ip, addrstr) == 0) {
             logging(LOGFILE, "==manager_thread 5==\n");
             // use script to leap application
-            systemDump(packet_recv);
+            systemDump(packet_recv, sockfd);
             // send leap message to shadow machine
             leapApp(packet_recv);
         }
@@ -117,7 +117,7 @@ void *manager_thread(void *arg){
         if (strcmp(packet_recv->Data.app_process.machine[1].ip, addrstr) == 0) {
             logging(LOGFILE, "==manager_thread 7==\n");
             // restore the leaped app on shadow machine
-            systemRestore(packet_recv);
+            systemRestore(packet_recv, sockfd);
         }
     }
 
