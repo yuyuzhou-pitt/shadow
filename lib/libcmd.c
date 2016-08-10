@@ -5,13 +5,14 @@
 #include <sys/wait.h>
 #include <stdio.h>
 #include "../packet/packet.h"
+#include "../lib/liblog.h"
 
 int systemDump(Packet *packet_recv, int sockfd){
     /* execution */
     char cmd[255];
     memset(cmd, 0, sizeof(cmd));
     // scritp
-    strcpy(cmd, "../application/script/dump-app.sh ");
+    strcpy(cmd, "/bin/bash ../application/script/dump-app.sh ");
     // application
     strcat(cmd, packet_recv->Data.app_process.app.options);
     strcat(cmd, " ");
@@ -28,7 +29,11 @@ int systemRestore(Packet *packet_recv, int sockfd){
     char cmd[255];
     memset(cmd, 0, sizeof(cmd));
     // scritp
-    strcpy(cmd, "../application/script/restore-app.sh ");
+    strcpy(cmd, "/bin/bash ../application/script/restore-app.sh ");
+    // application
+    strcat(cmd, packet_recv->Data.app_process.app.options);
+    strcat(cmd, " ");
+    // app pid
     char pid[32]; snprintf(pid, 10, "%d", packet_recv->Data.app_process.pid);
     strcat(cmd, pid);
     // target directory
@@ -43,6 +48,8 @@ int systemLaunch(char *cmd, int sockfd)
 
     if (0 == (my_pid = fork())) {
             close(sockfd);
+            logging(LOGFILE, cmd);
+            logging(LOGFILE, ".\n");
             if (-1 == system(cmd)) {
                     perror("child process execve failed [%m]");
                     return -1;

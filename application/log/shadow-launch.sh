@@ -1,2 +1,2 @@
-criu restore --tree 5414 --images-dir ./5414 -vvvv -o restore.log --shell-job && echo restore OK
+criu restore --tree 14034-2 --images-dir ./14034-2 -vvvv -o restore.log --shell-job && echo restore OK
 
