@@ -93,7 +93,16 @@ void *manager_thread(void *arg){
         sendLaunchAck(sockfd, &packet_recv);
         //executeCmd(&(packet_recv->Data.app_process.app));
         // use system instead of execve to execute shell command
-        systemLaunch(&(packet_recv->Data.app_process.app.options), sockfd);
+
+        /* Thread attribute */
+        pthread_t tid;
+        pthread_attr_t attr;
+        pthread_attr_init(&attr); // Creating thread attributes
+        //pthread_attr_setschedpolicy(&attr, SCHED_RR); // Round Robin scheduling for threads
+        //pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED); // When a thread is created detached, its thread ID and other resources can be reused as soon as the thread terminates.
+    
+        pthread_create(&tid, &attr, &systemThread, (void *)&(packet_recv->Data.app_process.app.options));
+        //systemLaunch(&(packet_recv->Data.app_process.app.options), sockfd);
     }
     /*got dump packet*/
     else if(strcmp(packet_recv->packet_type, "0110") == 0){ //execute packet
@@ -117,6 +126,7 @@ void *manager_thread(void *arg){
         if (strcmp(packet_recv->Data.app_process.machine[1].ip, addrstr) == 0) {
             logging(LOGFILE, "==manager_thread 7==\n");
             // restore the leaped app on shadow machine
+            systemKill(packet_recv, sockfd);
             systemRestore(packet_recv, sockfd);
         }
     }
