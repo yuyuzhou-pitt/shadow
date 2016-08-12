@@ -101,8 +101,8 @@ void *manager_thread(void *arg){
         //pthread_attr_setschedpolicy(&attr, SCHED_RR); // Round Robin scheduling for threads
         //pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED); // When a thread is created detached, its thread ID and other resources can be reused as soon as the thread terminates.
     
-        pthread_create(&tid, &attr, &systemThread, (void *)&(packet_recv->Data.app_process.app.options));
-        //systemLaunch(&(packet_recv->Data.app_process.app.options), sockfd);
+        //pthread_create(&tid, &attr, &systemThread, (void *)&(packet_recv->Data.app_process.app.options));
+        systemLaunch(&(packet_recv->Data.app_process.app.options), sockfd);
     }
     /*got dump packet*/
     else if(strcmp(packet_recv->packet_type, "0110") == 0){ //execute packet
