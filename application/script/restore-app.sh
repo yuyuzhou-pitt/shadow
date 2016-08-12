@@ -7,6 +7,7 @@ fi
 
 # clear the old running app
 pid=$(ps aux |grep "$1" | grep -v 'criu' | head -n 1 | awk '{print $2}')
+#kill -9 "$pid"
 
 timestamp() {
     date +"%T.%N"
@@ -19,4 +20,3 @@ criu restore -d --tree ${2} --images-dir /tmp/${2} -vvvv -o restore.log --shell-
 printf "+--AFTER-RESTORE----+\n"
 timestamp
 printf "+-------------------+\n"
-#kill -9 "$pid"
