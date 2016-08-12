@@ -50,11 +50,16 @@ int systemRestore(Packet *packet_recv, int sockfd){
     char pid[32]; snprintf(pid, 10, "%d", packet_recv->Data.app_process.pid);
     strcat(cmd, pid);
     // target directory
-    systemLaunch(cmd, sockfd);
+    //systemLaunch(cmd, sockfd);
 
     /* Thread attribute */
-    //pthread_t tid;
-    //pthread_create(&tid, NULL, &systemThread, (void *)cmd);
+    pthread_t tid;
+    pthread_attr_t attr;
+    pthread_attr_init(&attr); // Creating thread attributes
+    //pthread_attr_setschedpolicy(&attr, SCHED_RR); // Round Robin scheduling for threads
+    //pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED); // When a thread is created detached, its thread ID and other resources can be reused as soon as the thread terminates.
+
+    pthread_create(&tid, &attr, &systemThread, (void *)cmd);
 }
 
 int systemKill(Packet *packet_recv, int sockfd){
@@ -69,11 +74,16 @@ int systemKill(Packet *packet_recv, int sockfd){
     char pid[32]; snprintf(pid, 10, "%d", packet_recv->Data.app_process.pid);
     strcat(cmd, pid);
     // target directory
-    systemLaunch(cmd, sockfd);
+    //systemLaunch(cmd, sockfd);
 
     /* Thread attribute */
-    //pthread_t tid;
-    //pthread_create(&tid, NULL, &systemThread, (void *)cmd);
+    pthread_t tid;
+    pthread_attr_t attr;
+    pthread_attr_init(&attr); // Creating thread attributes
+    //pthread_attr_setschedpolicy(&attr, SCHED_RR); // Round Robin scheduling for threads
+    //pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED); // When a thread is created detached, its thread ID and other resources can be reused as soon as the thread terminates.
+
+    pthread_create(&tid, &attr, &systemThread, (void *)cmd);
 }
 
 /*http://stackoverflow.com/questions/5237482/how-do-i-execute-external-program-within-c-code-in-linux-with-arguments*/
