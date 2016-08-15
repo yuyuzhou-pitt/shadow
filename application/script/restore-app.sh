@@ -7,7 +7,7 @@ fi
 
 # clear the old running app
 pid=$(ps aux |grep "$1" | grep -v 'criu' | head -n 1 | awk '{print $2}')
-#kill -9 "$pid"
+kill -9 "$pid"
 
 timestamp() {
     date +"%T.%N"
