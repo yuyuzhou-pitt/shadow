@@ -42,20 +42,20 @@ Enter the commands 'help' for usage.
 [root@manager1]# cd /root/shadow/manager; make clean; make
 [root@manager1]# ./manager xxx.xxx.xxx.18 40592
 (manager): Staring manager...
-(manager): Manager started (ip port): 136.142.119.28 59683.
+(manager): Manager started (ip port): xxx.xxx.xxx.25 59683.
 (manager): Ready to receive jobs, please track log file for detail: shadow.log
 
 
 [root@manager2]# cd /root/shadow/manager; make clean; make
 [root@manager2]# ./manager xxx.xxx.xxx.18 40592
 (manager): Staring manager...
-(manager): Manager started (ip port): 136.142.119.28 59683.
+(manager): Manager started (ip port): xxx.xxx.xxx.28 59683.
 (manager): Ready to receive jobs, please track log file for detail: shadow.log
 
 3. Run noise in second manasger
 [root@manager2]# cd /root/shadow/application/script; sh launch-noise.sh
 
 4. Launch and leap application via supervisor:
-(supervisor)# launch 136.142.119.25 136.142.119.28 /root/shadow/application/script/launch.sh
-(supervisor)# leap 136.142.119.25 136.142.119.28 /root/shadow/application/pi
+(supervisor)# launch xxx.xxx.xxx.25 xxx.xxx.xxx.28 /root/shadow/application/script/launch.sh
+(supervisor)# leap xxx.xxx.xxx.25 xxx.xxx.xxx.28 /root/shadow/application/pi
 
