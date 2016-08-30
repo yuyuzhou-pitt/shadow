@@ -19,4 +19,43 @@ Before starting the cluster, make sure:
 3. Passwordless SSH from Main to Shadow (for criu scp)
 *  On Main machine:
   # echo -e "\n\n\n" | ssh-keygen -t rsa
-  # cat ~/.ssh/id_rsa.pub | ssh root@<shadow_ip> 'mkdir -p ~/.ssh; touch ~/.ssh/authorized_keys; cat >> ~/.ssh/authorized_keys'
+  # cat ~/.ssh/id_rsa.pub | ssh root@<shadow_ip> 'mkdir -p ~/.ssh; touch ~/.ssh/authorized_keys; cat >> ~/.ssh/authorized_keys
+
+Demo of executing:
+git clone this repo at /root
+
+1. start supervisor
+[root@supervisor]# cd /root/shadow/supervisor; make clean; make
+[root@supervisor]# ./supervisor
+
+(supervisor): Staring supervisor...
+(supervisor): Supervisor started (ip port): xxx.xxx.xxx.18 40592.
+(supervisor): please track log file for detail: shadow.log
+
+== WELCOME TO TERMINAL FOR SHADOW! ==
+
+Enter the commands 'help' for usage.
+
+(supervisor)# 
+
+2. Start two manager
+[root@manager1]# cd /root/shadow/manager; make clean; make
+[root@manager1]# ./manager xxx.xxx.xxx.18 40592
+(manager): Staring manager...
+(manager): Manager started (ip port): 136.142.119.28 59683.
+(manager): Ready to receive jobs, please track log file for detail: shadow.log
+
+
+[root@manager2]# cd /root/shadow/manager; make clean; make
+[root@manager2]# ./manager xxx.xxx.xxx.18 40592
+(manager): Staring manager...
+(manager): Manager started (ip port): 136.142.119.28 59683.
+(manager): Ready to receive jobs, please track log file for detail: shadow.log
+
+3. Run noise in second manasger
+[root@manager2]# cd /root/shadow/application/script; sh launch-noise.sh
+
+4. Launch and leap application via supervisor:
+(supervisor)# launch 136.142.119.25 136.142.119.28 /root/shadow/application/script/launch.sh
+(supervisor)# leap 136.142.119.25 136.142.119.28 /root/shadow/application/pi
+

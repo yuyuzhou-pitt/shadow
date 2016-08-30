@@ -21,17 +21,14 @@ cd "$pid"
 printf "+--BEFORE-DUMP-------\n"
 timestamp 
 printf "+-------------------+\n"
-criu dump -t "$pid" -vvv -o dump.log --shell-job --leave-stopped  && echo dump OK
+criu dump -t "$pid" -vvv -o dump.log --shell-job --leave-running  && echo dump OK
 printf "+--AFTER-DUMP-------+\n"
 timestamp 
 printf "+-------------------+\n"
 cd ..
 # overwrite target directory
 scp -r "$pid" $2
-rm -fr /tmp/"$pid"
-cp -r "$pid" /tmp/"$pid"
-kill -9 "$pid"
-criu restore -d --tree "$pid" --images-dir /tmp/"$pid" -vvvv -o restore.log --shell-job && echo restore OK
+#cp -r "$pid" /tmp/"$pid"
 printf "+--New AFTER-COPY-------+\n"
 timestamp 
 printf "+-------------------+\n"
